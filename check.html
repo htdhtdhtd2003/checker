@@ -6,7 +6,7 @@
 <title>Check Ver 31</title>
 </head>
 <style>
-    #selectedItem {
+#selectedItem {
     display: none;
   }
 .container {
@@ -131,7 +131,7 @@
 <div id="myDiv5" class="column">
 
 
-<input type="text" id="searchTerm" oninput="searchText()">
+<input type="text" id="searchTerm" oninput="searchfile()">
 <br>
 
 <select id="searchResults" size="5" oninput="displaySelectedItem()" </select>
@@ -150,6 +150,35 @@
 
 
 <script>
+
+function searchfile() {
+   var file = document.getElementById('fileInput').files[0];
+    var searchTerm = document.getElementById('searchTerm').value.toLowerCase();
+    var searchResults = document.getElementById('searchResults');
+    searchResults.innerHTML = ''; // Clear previous results
+    
+    var reader = new FileReader();
+    reader.onload = function(event) {
+        var text = event.target.result;
+        var lines = text.split('\n');
+        lines.forEach(function(line, index) {
+            if (line.toLowerCase().includes(searchTerm)) {
+                var option = document.createElement('option');
+               
+                 
+       
+      
+                   option.text = line;
+              
+                searchResults.add(option);
+            }
+        });
+    };
+    
+    reader.readAsText(file);
+   if (document.getElementById('searchResults').value === ""){searchText()}; //file search empty then search online text file 3-16-2024
+}
+
 
 function searchText() {
     var searchTerm = document.getElementById('searchTerm').value.toLowerCase();
@@ -512,7 +541,7 @@ function saveData1() {
     localStorage.setItem('savedData', JSON.stringify(data));
     clearTextboxes(); // Call the function to clear textboxes
                 clearListBox(); // clear listbox
-                reloadPage(); //reloadPage
+                //reloadPage(); //reloadPage
     // alert('Data saved successfully!');
 }
 
@@ -552,7 +581,7 @@ function saveData2() {
     // alert('Data saved successfully!');
     clearTextboxes(); // Call the function to clear textboxes
                 clearListBox(); // clear listbox
-                reloadPage(); //reloadPage
+                //reloadPage(); //reloadPage
 }
 
 function recallData2() {
@@ -13761,7 +13790,7 @@ function selectFirstItem() {
     
     document.getElementById("searchTerm").value = document.getElementById("searchInput").value
    
-    searchText();
+    searchfile();
     } 
     else {    document.getElementById("searchTerm").value = document.getElementById("searchInput").value
              searchText();
@@ -14649,7 +14678,7 @@ function clearListBox() {
 // 3-7-2024 ***set focus Textbox 14 afer search ndc -->enter -->item 1 selected --> called check() function --> if correct --> Textbox 14 set focus
 // 3-8-2024 ***Change compare textbox hotkey to F8
 // 3-8-2024 ***Change Clear textbox to Escape key
-
+// 3-16-2024 ***file search empty then search online text file 
 </script>
 
 </body>
