@@ -149,30 +149,33 @@
 <script>
 
 function searchText() {
-   var file = document.getElementById('fileInput').files[0];
     var searchTerm = document.getElementById('searchTerm').value.toLowerCase();
     var searchResults = document.getElementById('searchResults');
     searchResults.innerHTML = ''; // Clear previous results
     
-    var reader = new FileReader();
-    reader.onload = function(event) {
-        var text = event.target.result;
+    // URL of the text file on GitHub
+    var fileUrl = 'https://raw.githubusercontent.com/htdhtdhtd2003/checker/main/ndc.txt'; // Update with the actual URL
+    
+    fetch(fileUrl)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.text();
+    })
+    .then(text => {
         var lines = text.split('\n');
         lines.forEach(function(line, index) {
             if (line.toLowerCase().includes(searchTerm)) {
                 var option = document.createElement('option');
-               
-                 
-       
-      
-                   option.text = line;
-              
+                option.text = line;
                 searchResults.add(option);
             }
         });
-    };
-    
-    reader.readAsText(file);
+    })
+    .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+    });
 }
 
 
@@ -13744,22 +13747,26 @@ function splitText() {
   
 // select first item on search list
 function selectFirstItem() {
+ 
   if (event.key === 'Enter') { // Check if Enter key is pressed
     event.preventDefault(); // Prevent default Enter behavior (form submission)
     var fileInput = document.getElementById('fileInput');
     var fileList = fileInput.files;
-
+    
     if (fileList.length !== 0) {
      
     
     document.getElementById("searchTerm").value = document.getElementById("searchInput").value
+   
     searchText();
     } 
-    //else {
+    else {    document.getElementById("searchTerm").value = document.getElementById("searchInput").value
+             searchText();
       //  alert("Please select a file.");
         //return;
-    //}
+    }
     var listbox = document.getElementById("resultsList");
+    
     listbox.selectedIndex = 0; // Set the selectedIndex to 0 to select the first item
     displayDetails(); // 3-4-2024
     
@@ -13789,6 +13796,7 @@ const result99 = document.getElementById('box10').value;
   function search() {
     const searchTerm = document.getElementById('searchInput').value.toLowerCase();
     const resultsList = document.getElementById('resultsList');
+    
     resultsList.innerHTML = '';
 
     for (let item of database) {
