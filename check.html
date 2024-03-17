@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>check github with hightlight</title>
+<title>Check - github</title>
 </head>
 <style>
 #selectedItem {
@@ -39,17 +39,16 @@
 <div class="container">
   <div id="myDiv"   class="column">
        <p id="x1"></p>
-    <!-- Repeat for each column -->
-    <input type="text" id="Textbox 1" oninput="toUpperCase(this)" tabindex="1" ondblclick="compareTextBoxes1()" onkeydown="moveToNextTextbox(event, 2)"  onkeyup='check1();'>
-    <input type="text" id="Textbox 2" oninput="toUpperCase(this)" tabindex="2" ondblclick="compareTextBoxes2()" onkeydown="moveToNextTextbox(event, 3)" onkeyup='check2();'>
-    <input type="text" id="Textbox 3" oninput="toUpperCase(this)" tabindex="3" ondblclick="compareTextBoxes3()" onkeydown="moveToNextTextbox(event, 4)" onkeyup='check3();'> 
-    <input type="text" id="Textbox 4" oninput="toUpperCase(this)" tabindex="4" ondblclick="compareTextBoxes4()" onkeydown="moveToNextTextbox(event, 5)" onkeyup='check4();'>
-    <input type="text" id="Textbox 5" oninput="toUpperCase(this)" tabindex="5" ondblclick="compareTextBoxes5()" onkeydown="moveToNextTextbox(event, 6)" onkeyup='check5();'>
-    <input type="text" id="Textbox 6" oninput="toUpperCase(this)" tabindex="6" ondblclick="compareTextBoxes6()" onkeydown="moveToNextTextbox(event, 7)" onkeyup='check6();'> 
-    <input type="text" id="Textbox 7" oninput="toUpperCase(this)" tabindex="7" ondblclick="compareTextBoxes7()" onkeydown="moveToNextTextbox(event, 8)" onkeyup='check7();'>
-    <input type="text" id="Textbox 8" oninput="toUpperCase(this)" tabindex="8" ondblclick="compareTextBoxes8()" onkeydown="moveToNextTextbox(event, 9)" onkeyup='check8();'>
-    <input type="text" id="Textbox 9" oninput="toUpperCase(this)" tabindex="9" ondblclick="compareTextBoxes9()" onkeydown="moveToNextTextbox(event, 10)" onkeyup='check9();'>
-    <input type="text" id="Textbox 10" oninput="toUpperCase(this)" tabindex="10" ondblclick="compareTextBoxes10()" onkeydown="moveToNextTextbox(event, 11)" onkeyup='check10();'>
+    <input type="text" id="Textbox 1" onfocus="textboxlocation()" oninput="toUpperCase(this)" tabindex="1" ondblclick="compareTextBoxes1()" onkeydown="moveToNextTextbox(event, 2)"  onkeyup='check1();'>
+    <input type="text" id="Textbox 2" onfocus="textboxlocation()" oninput="toUpperCase(this)" tabindex="2" ondblclick="compareTextBoxes2()" onkeydown="moveToNextTextbox(event, 3)" onkeyup='check2();'>
+    <input type="text" id="Textbox 3" onfocus="textboxlocation()" oninput="toUpperCase(this)" tabindex="3" ondblclick="compareTextBoxes3()" onkeydown="moveToNextTextbox(event, 4)" onkeyup='check3();'> 
+    <input type="text" id="Textbox 4" onfocus="textboxlocation()" oninput="toUpperCase(this)" tabindex="4" ondblclick="compareTextBoxes4()" onkeydown="moveToNextTextbox(event, 5)" onkeyup='check4();'>
+    <input type="text" id="Textbox 5" onfocus="textboxlocation()" oninput="toUpperCase(this)" tabindex="5" ondblclick="compareTextBoxes5()" onkeydown="moveToNextTextbox(event, 6)" onkeyup='check5();'>
+    <input type="text" id="Textbox 6" onfocus="textboxlocation()" oninput="toUpperCase(this)" tabindex="6" ondblclick="compareTextBoxes6()" onkeydown="moveToNextTextbox(event, 7)" onkeyup='check6();'>
+    <input type="text" id="Textbox 7" onfocus="textboxlocation()" oninput="toUpperCase(this)" tabindex="7" ondblclick="compareTextBoxes7()" onkeydown="moveToNextTextbox(event, 8)" onkeyup='check7();'>
+    <input type="text" id="Textbox 8" onfocus="textboxlocation()" oninput="toUpperCase(this)" tabindex="8" ondblclick="compareTextBoxes8()" onkeydown="moveToNextTextbox(event, 9)" onkeyup='check8();'>
+    <input type="text" id="Textbox 9" onfocus="textboxlocation()" oninput="toUpperCase(this)" tabindex="9" ondblclick="compareTextBoxes9()" onkeydown="moveToNextTextbox(event, 10)" onkeyup='check9();'>
+    <input type="text" id="Textbox 10" onfocus="textboxlocation()" oninput="toUpperCase(this)" tabindex="10" ondblclick="compareTextBoxes10()" onkeydown="moveToNextTextbox(event, 11)" onkeyup='check10();'>
 <!-- Save button 1 -->
 <br>
 <button onclick="saveData1()">S1</button>
@@ -69,16 +68,16 @@
   <div id="myDiv1" class="column">
      <p id="x2"></p>
     <!-- Add textboxes similar to Column 1 -->
-<input type="text" id="Textbox 11" oninput="toUpperCase(this)" tabindex="11" ondblclick="compareTextBoxes1()" onkeydown="moveToNextTextbox(event, 12)" onkeyup='check1();'>
-    <input type="text" id="Textbox 12" oninput="toUpperCase(this)" tabindex="12" ondblclick="compareTextBoxes2()" onkeydown="moveToNextTextbox(event, 13)" onkeyup='check2();'>
-    <input type="text" id="Textbox 13" oninput="toUpperCase(this)" tabindex="13" ondblclick="compareTextBoxes3()" onkeydown="moveToNextTextbox(event, 14)" onkeyup='check3();'>
-    <input type="text" id="Textbox 14" oninput="toUpperCase(this)" tabindex="14" ondblclick="compareTextBoxes4()" onkeydown="moveToNextTextbox(event, 15)" onkeyup='check4();'>
-    <input type="text" id="Textbox 15" oninput="toUpperCase(this)" tabindex="15" ondblclick="compareTextBoxes5()" onkeydown="moveToNextTextbox(event, 16)" onkeyup='check5();'>
-    <input type="text" id="Textbox 16" oninput="toUpperCase(this)" tabindex="16" ondblclick="compareTextBoxes6()" onkeydown="moveToNextTextbox(event, 17)" onkeyup='check6();'>
-    <input type="text" id="Textbox 17" oninput="toUpperCase(this)" tabindex="17" ondblclick="compareTextBoxes7()" onkeydown="moveToNextTextbox(event, 18)" onkeyup='check7();'>
-    <input type="text" id="Textbox 18" oninput="toUpperCase(this)" tabindex="18" ondblclick="compareTextBoxes8()" onkeydown="moveToNextTextbox(event, 19)" onkeyup='check8();'>
-    <input type="text" id="Textbox 19" oninput="toUpperCase(this)" tabindex="19" ondblclick="compareTextBoxes9()" onkeydown="moveToNextTextbox(event, 20)" onkeyup='check9();'>
-    <input type="text" id="Textbox 20" oninput="toUpperCase(this)" tabindex="20" ondblclick="compareTextBoxes10()" onkeydown="moveToNextTextbox(event, 1)" onkeyup='check10();'>
+                        <input type="text" id="Textbox 11" onfocus="textboxlocation()" oninput="toUpperCase(this)" tabindex="11" ondblclick="compareTextBoxes1()" onkeydown="moveToNextTextbox(event, 12)" onkeyup='check1();'>
+    			<input type="text" id="Textbox 12" onfocus="textboxlocation()" oninput="toUpperCase(this)" tabindex="12" ondblclick="compareTextBoxes2()" onkeydown="moveToNextTextbox(event, 13)" onkeyup='check2();'>
+    			<input type="text" id="Textbox 13" onfocus="textboxlocation()" oninput="toUpperCase(this)" tabindex="13" ondblclick="compareTextBoxes3()" onkeydown="moveToNextTextbox(event, 14)" onkeyup='check3();'>
+		    	<input type="text" id="Textbox 14" onfocus="textboxlocation()" oninput="toUpperCase(this)" tabindex="14" ondblclick="compareTextBoxes4()" onkeydown="moveToNextTextbox(event, 15)" onkeyup='check4();'>
+    			<input type="text" id="Textbox 15" onfocus="textboxlocation()" oninput="toUpperCase(this)" tabindex="15" ondblclick="compareTextBoxes5()" onkeydown="moveToNextTextbox(event, 16)" onkeyup='check5();'>
+  			<input type="text" id="Textbox 16" onfocus="textboxlocation()" oninput="toUpperCase(this)" tabindex="16" ondblclick="compareTextBoxes6()" onkeydown="moveToNextTextbox(event, 17)" onkeyup='check6();'>
+ 			 <input type="text" id="Textbox 17" onfocus="textboxlocation()" oninput="toUpperCase(this)" tabindex="17" ondblclick="compareTextBoxes7()" onkeydown="moveToNextTextbox(event, 18)" onkeyup='check7();'>
+  			 <input type="text" id="Textbox 18" onfocus="textboxlocation()" oninput="toUpperCase(this)" tabindex="18" ondblclick="compareTextBoxes8()" onkeydown="moveToNextTextbox(event, 19)" onkeyup='check8();'>
+   		         <input type="text" id="Textbox 19" onfocus="textboxlocation()" oninput="toUpperCase(this)" tabindex="19" ondblclick="compareTextBoxes9()" onkeydown="moveToNextTextbox(event, 20)" onkeyup='check9();'>
+  			 <input type="text" id="Textbox 20" onfocus="textboxlocation()" oninput="toUpperCase(this)" tabindex="20" ondblclick="compareTextBoxes10()" onkeydown="moveToNextTextbox(event, 1)" onkeyup='check10();'>
 <button onclick="clearTextboxes()">RESET(F6)</button>
   </div>
 
@@ -734,7 +733,1038 @@ function splitText() {
         }
       }
     }
-  // Sample Database
+    
+
+  
+  
+// select first item on search list
+function selectFirstItem() {
+ 
+  if (event.key === 'Enter') { // Check if Enter key is pressed
+    event.preventDefault(); // Prevent default Enter behavior (form submission)
+    var fileInput = document.getElementById('fileInput');
+    var fileList = fileInput.files;
+    
+    if (fileList.length !== 0) {
+     
+    
+    document.getElementById("searchTerm").value = document.getElementById("searchInput").value
+   
+    searchfile();
+    } 
+    else {    document.getElementById("searchTerm").value = document.getElementById("searchInput").value
+             searchText();
+      //  alert("Please select a file.");
+        //return;
+    }
+    var listbox = document.getElementById("resultsList");
+    
+    listbox.selectedIndex = 0; // Set the selectedIndex to 0 to select the first item
+    displayDetails(); // 3-4-2024
+    
+    listbox.focus();
+    check(); 3-7
+  }
+}
+
+
+  // Function to search the database
+ 
+  function res1(){
+const result00 = document.getElementById('box1').value;
+    const result11 = document.getElementById('box2').value;
+const result22 = document.getElementById('box3').value;
+const result33 = document.getElementById('box4').value;
+const result44 = document.getElementById('box5').value;
+const result55 = document.getElementById('box6').value;
+const result66 = document.getElementById('box7').value;
+const result77 = document.getElementById('box8').value;
+const result88 = document.getElementById('box9').value;
+const result99 = document.getElementById('box10').value;
+   document.getElementById('joinedResultsss').value = result00.toUpperCase() + result11.toUpperCase() + result22.toUpperCase() + result33.toUpperCase() + result44.toUpperCase() + result55.toUpperCase() + result66.toUpperCase() + result77.toUpperCase() + result88.toUpperCase() + result99.toUpperCase();
+ check();
+}
+// **********************************
+  function search() {
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+    const resultsList = document.getElementById('resultsList');
+    
+    resultsList.innerHTML = '';
+
+    for (let item of database) {
+      if (item.toLowerCase().includes(searchTerm)) {
+        const option = document.createElement('option');
+        option.text = item;
+        resultsList.add(option);
+      }
+    }
+    
+  }
+  
+  // **********************************
+       document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {                   // 3-8-2024 change clear hotkey to Escape button
+                event.preventDefault();
+                const activeTextbox = document.activeElement;
+                if (activeTextbox.tagName === 'INPUT') {
+                    activeTextbox.value = '';
+                }
+            }
+        });
+        
+        // **************************
+     function res0(){const result1 = document.getElementById('result1').value;
+    const result2 = document.getElementById('result2').value;
+    const result3 = document.getElementById('result3').value;
+    const result4 = document.getElementById('result4').value;
+    const result5 = document.getElementById('result5').value;
+    const result6 = document.getElementById('result6').value;
+    const result7 = document.getElementById('result7').value;
+    const result8 = document.getElementById('result8').value;
+    const result9 = document.getElementById('result9').value;
+    const result10 = document.getElementById('result10').value;
+    
+   document.getElementById('joinedResult').value = result1.toUpperCase() + result2.toUpperCase() + result3.toUpperCase() + result4.toUpperCase() + result5.toUpperCase() + result6.toUpperCase() + result7.toUpperCase() + result8.toUpperCase() + result9.toUpperCase() + result10.toUpperCase();
+
+const result00 = document.getElementById('box1').value;
+    const result11 = document.getElementById('box2').value;
+const result22 = document.getElementById('box3').value;
+const result33 = document.getElementById('box4').value;
+const result44 = document.getElementById('box5').value;
+const result55 = document.getElementById('box6').value;
+const result66 = document.getElementById('box7').value;
+const result77 = document.getElementById('box8').value;
+const result88 = document.getElementById('box9').value;
+const result99 = document.getElementById('box10').value;
+   document.getElementById('joinedResultsss').value = result00.toUpperCase() + result11.toUpperCase() + result22.toUpperCase() + result33.toUpperCase() + result44.toUpperCase() + result55.toUpperCase() + result66.toUpperCase() + result77.toUpperCase() + result88.toUpperCase() + result99.toUpperCase();
+     check()
+     }
+     
+     
+    // ************************************************ 
+     
+     
+         document.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+              check1();
+              check2();
+              check3();
+              check4();
+              check5();
+              check6();
+              check7();
+              check8();
+              check9();
+              check10();
+              replacesearch(); //call replacesearch
+                const result1 = document.getElementById('result1').value;
+    const result2 = document.getElementById('result2').value;
+    const result3 = document.getElementById('result3').value;
+    const result4 = document.getElementById('result4').value;
+    const result5 = document.getElementById('result5').value;
+    const result6 = document.getElementById('result6').value;
+    const result7 = document.getElementById('result7').value;
+    const result8 = document.getElementById('result8').value;
+    const result9 = document.getElementById('result9').value;
+    const result10 = document.getElementById('result10').value;
+    
+   document.getElementById('joinedResult').value = result1.toUpperCase() + result2.toUpperCase() + result3.toUpperCase() + result4.toUpperCase() + result5.toUpperCase() + result6.toUpperCase() + result7.toUpperCase() + result8.toUpperCase() + result9.toUpperCase() + result10.toUpperCase();
+
+const result11 = document.getElementById('box1').value;
+    const result22 = document.getElementById('box2').value;
+   document.getElementById('joinedResultsss').value = result11.toUpperCase() + result22.toUpperCase();
+            }
+        });
+  // ****Function to display details when an item is selected
+  function displayDetails() {
+    replaceresultslist();
+    const selectedItem = searchfilter
+    const [result1, result2, result3, result4, result5, result6, result7, result8, result9, result10] = selectedItem.split(' ');
+
+    document.getElementById('result1').value = result1 || '';
+    document.getElementById('result2').value = result2 || '';
+    document.getElementById('result3').value = result3 || '';
+    document.getElementById('result4').value = result4 || '';
+    document.getElementById('result5').value = result5 || '';
+    document.getElementById('result6').value = result6 || '';
+    document.getElementById('result7').value = result7 || '';
+    document.getElementById('result8').value = result8 || '';
+    document.getElementById('result9').value = result9 || '';
+    document.getElementById('result10').value = result10 || '';
+    //clear ndc 
+    for (var i = 1; i <= 10; i++) {
+       var inputText = document.getElementById('result' + i).value;
+
+    
+    // Use isNaN() function to check if the input is not a number
+    if (!isNaN(inputText) && inputText.length === 11) {
+     document.getElementById('result' + i).value = ""
+     } else 
+     {document.getElementById('result' + i).value =  document.getElementById('result' + i).value;
+    }
+     }
+     
+    // call combine textbox for search
+     replacesearch();
+     res0();
+    
+  }
+ 
+ //resultslist filter for <>\/%
+ 
+ function replaceresultslist() {
+
+       var textInput = document.getElementById('resultsList').value;
+      //remove dashes from ndc on search 
+       var inputText = textInput;
+       var textlength1 = textInput.length-2
+       var textlength2 = textInput.length
+    var outputText = inputText.substring(0, textInput.length-8) +inputText.substring(textInput.length - 7 , textInput.length-3) +inputText.substring(textlength1 , textInput.length)
+     textInput = outputText;
+     //***********************************
+      var textInput = textInput.toUpperCase()
+      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
+      var textInput = trimmedText.replace(new RegExp("CAPSULE", 'g'), "");
+      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
+      var textInput = trimmedText.replace(new RegExp("CAP", 'g'), "");
+      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
+      var textInput = trimmedText.replace(new RegExp("TABLET", 'g'), "");
+      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
+      var textInput = trimmedText.replace(new RegExp("MG", 'g'), "");
+      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
+      
+      
+      var textInput = trimmedText.replace(/\//g, ' ');
+      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
+      var textInput = trimmedText.replace(/\\/g, ' ');
+      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
+     var textInput = trimmedText.replace(/-/g, ' ');
+      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
+      var textInput = trimmedText.replace(/\//g, '');
+      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
+      var textInput = trimmedText.replace(/,/g, '');
+      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
+      var textInput = trimmedText.replace(/\(/g, "");
+      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
+     var textInput = trimmedText.replace(/\)/g, '');
+      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
+      
+     var textInput = trimmedText.replace(/%/g, '');
+      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
+      
+      var textInput = trimmedText.replace(new RegExp("ORAL",'g'), "");
+      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
+      var textInput  = trimmedText.replace(new RegExp("TAB", 'g'), "");
+      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
+       searchfilter = trimmedText
+     
+ }
+ 
+ // find and replace search results (),\/*
+ function replacesearch() {
+ for (var i = 1; i <= 10; i++) {
+       var textInput = document.getElementById('result' + i).value;
+      var textInput = textInput.toUpperCase()
+      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
+      var textInput = trimmedText.replace(new RegExp("CAPSULE", 'g'), "");
+      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
+      var textInput = trimmedText.replace(new RegExp("CAP", 'g'), "");
+      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
+      var textInput = trimmedText.replace(new RegExp("TABLET", 'g'), "");
+      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
+      var textInput = trimmedText.replace(new RegExp("MG", 'g'), "");
+      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
+      
+      
+      var textInput = trimmedText.replace(/\//g, '');
+      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
+      var textInput = trimmedText.replace(/\\/g, '');
+      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
+     var textInput = trimmedText.replace(/-/g, '');
+      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
+      var textInput = trimmedText.replace(/\//g, '');
+      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
+      var textInput = trimmedText.replace(/,/g, '');
+      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
+      var textInput = trimmedText.replace(/\(/g, "");
+      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
+     var textInput = trimmedText.replace(/\)/g, '');
+      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
+      
+     var textInput = trimmedText.replace(/%/g, '');
+      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
+      
+      var textInput = trimmedText.replace(new RegExp("ORAL",'g'), "");
+      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
+      var textInput  = trimmedText.replace(new RegExp("TAB", 'g'), "");
+      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
+       document.getElementById('result' + i).value = trimmedText
+     }
+ }
+  // Function to clear a specific textbox
+  function clearTextbox(id) {
+    document.getElementById(id).value = '';
+  }
+  
+  function check() {
+        var textbox1 = document.getElementById("joinedResult").value;
+        var textbox2 = document.getElementById("joinedResultsss").value;
+        var textbox1Element = document.getElementById("joinedResult");
+        var textbox2Element = document.getElementById("joinedResultsss");
+        
+        if (textbox1 == textbox2) {
+            textbox1Element.classList.remove("red");
+            textbox2Element.classList.remove("red");
+            textbox1Element.classList.add("green");
+            textbox2Element.classList.add("green");
+              // send joinedResultsss to textbox 13
+             document.getElementById('Textbox 13').value = document.getElementById('joinedResult').value
+             // send joinedResultsss to textbox 3 
+             document.getElementById('Textbox 3').value = document.getElementById('joinedResultsss').value
+             check3();
+           
+             document.getElementById('Textbox 14').focus()
+        } else {
+            textbox1Element.classList.remove("green");
+            textbox2Element.classList.remove("green");
+            textbox1Element.classList.add("red");
+            textbox2Element.classList.add("red");
+        }
+        if (textbox2 == ""){
+        textbox1Element.classList.remove("red");
+            textbox2Element.classList.remove("red");
+            textbox1Element.classList.remove("green");
+            textbox2Element.classList.remove("green");
+            textbox1Element.classList.add("white");
+            textbox2Element.classList.add("white");
+            }
+        
+            if (textbox1 == ""){
+        textbox1Element.classList.remove("red");
+            textbox2Element.classList.remove("red");
+            textbox1Element.classList.remove("green");
+            textbox2Element.classList.remove("green");
+            textbox1Element.classList.add("white");
+            textbox2Element.classList.add("white");
+            }
+    }
+    
+      //*******************first half of code 
+
+var a;
+var b;
+function textboxlocation(){
+  var focusedInputId = document.activeElement.id;
+
+    var x = focusedInputId.split(' ')[1]; // Split the ID at the underscore and get the second part
+    
+    if (x<11){
+      var c = x*1
+      var d = (x*1)+10
+      a = c
+      b = d
+    
+    }
+    
+    if (x>10) {
+      var c = (x*1)-10
+      var d = x*1
+       a = c
+      b = d
+    }
+
+}
+
+
+function toUpperCase(element) {
+  // Convert the input value to uppercase
+  element.value = element.value.toUpperCase();
+textboxlocation();
+     
+  var textbox4 = document.getElementById("Textbox " + a).value;
+
+
+        var textbox14 = document.getElementById("Textbox " + b).value;
+        
+  
+        if (textbox4 !== "" && textbox14 !== "") {
+  compareInputs()
+        }
+}
+
+
+    function check1() {
+        var textbox1 = document.getElementById("Textbox 1").value;
+        var textbox2 = document.getElementById("Textbox 11").value;
+        var textbox1Element = document.getElementById("Textbox 1");
+        var textbox2Element = document.getElementById("Textbox 11");
+        
+        if (textbox1 == textbox2) {
+            document.getElementById('x1').innerHTML = "";
+            document.getElementById('x2').innerHTML = "";
+            textbox1Element.classList.remove("red");
+            textbox2Element.classList.remove("red");
+            textbox1Element.classList.add("green");
+            textbox2Element.classList.add("green");
+        } else {
+            textbox1Element.classList.remove("green");
+            textbox2Element.classList.remove("green");
+            textbox1Element.classList.add("red");
+            textbox2Element.classList.add("red");
+        }
+        if (textbox2 == ""){
+        textbox1Element.classList.remove("red");
+            textbox2Element.classList.remove("red");
+            textbox1Element.classList.remove("green");
+            textbox2Element.classList.remove("green");
+            textbox1Element.classList.add("white");
+            textbox2Element.classList.add("white");
+            }
+        
+            if (textbox1 == ""){
+        textbox1Element.classList.remove("red");
+            textbox2Element.classList.remove("red");
+            textbox1Element.classList.remove("green");
+            textbox2Element.classList.remove("green");
+            textbox1Element.classList.add("white");
+            textbox2Element.classList.add("white");
+            }
+            if (event.key === "F8" ) {        // 3-8-2024 F8 hotkey to compare textbox
+    event.preventDefault();
+    compareInputs()
+    compareTextBoxes1()
+   
+  }
+    }
+    
+    function check2() {
+        var textbox11 = document.getElementById("Textbox 2").value;
+        var textbox22 = document.getElementById("Textbox 12").value;
+        var textbox11Element = document.getElementById("Textbox 2");
+        var textbox22Element = document.getElementById("Textbox 12");
+        
+        if (textbox11 == textbox22) {
+          document.getElementById('x1').innerHTML = "";
+            document.getElementById('x2').innerHTML = "";
+            textbox11Element.classList.remove("red");
+            textbox22Element.classList.remove("red");
+            textbox11Element.classList.add("green");
+            textbox22Element.classList.add("green");
+        } else {
+            textbox11Element.classList.remove("green");
+            textbox22Element.classList.remove("green");
+            textbox11Element.classList.add("red");
+            textbox22Element.classList.add("red");
+        }
+        if (textbox22 == ""){
+        textbox11Element.classList.remove("red");
+            textbox22Element.classList.remove("red");
+            textbox11Element.classList.remove("green");
+            textbox22Element.classList.remove("green");
+            textbox11Element.classList.add("white");
+            textbox22Element.classList.add("white");
+            }
+        
+            if (textbox11 == ""){
+        textbox11Element.classList.remove("red");
+            textbox22Element.classList.remove("red");
+            textbox11Element.classList.remove("green");
+            textbox22Element.classList.remove("green");
+            textbox11Element.classList.add("white");
+            textbox22Element.classList.add("white");
+            }
+            if (event.key === "F8" ) {   // 3-8-2024 F8 hotkey to compare textbox
+    event.preventDefault();
+    compareInputs()
+    compareTextBoxes2()
+   
+  }
+    }
+    
+    
+    function check3() {
+        var textbox111 = document.getElementById("Textbox 3").value;
+        var textbox222 = document.getElementById("Textbox 13").value;
+        var textbox111Element = document.getElementById("Textbox 3");
+        var textbox222Element = document.getElementById("Textbox 13");
+        
+        if (textbox111 == textbox222) {
+          document.getElementById('x1').innerHTML = "";
+            document.getElementById('x2').innerHTML = "";
+            textbox111Element.classList.remove("red");
+            textbox222Element.classList.remove("red");
+            textbox111Element.classList.add("green");
+            textbox222Element.classList.add("green");
+        } else {
+            textbox111Element.classList.remove("green");
+            textbox222Element.classList.remove("green");
+            textbox111Element.classList.add("red");
+            textbox222Element.classList.add("red");
+        }
+        if (textbox222 == ""){
+        textbox111Element.classList.remove("red");
+            textbox222Element.classList.remove("red");
+            textbox111Element.classList.remove("green");
+            textbox222Element.classList.remove("green");
+            textbox111Element.classList.add("white");
+            textbox222Element.classList.add("white");
+            }
+        
+            if (textbox111 == ""){
+        textbox111Element.classList.remove("red");
+            textbox222Element.classList.remove("red");
+            textbox111Element.classList.remove("green");
+            textbox222Element.classList.remove("green");
+            textbox111Element.classList.add("white");
+            textbox222Element.classList.add("white");
+            }
+            if (event.key === "F8" ) {// 3-8-2024 F8 hotkey to compare textbox
+    event.preventDefault();
+    compareInputs()
+    compareTextBoxes3()
+   
+  
+            }
+    }
+    
+    
+    function check4() {
+        var textbox1111 = document.getElementById("Textbox 4").value;
+        var textbox2222 = document.getElementById("Textbox 14").value;
+        var textbox1111Element = document.getElementById("Textbox 4");
+        var textbox2222Element = document.getElementById("Textbox 14");
+        
+        if (textbox1111 == textbox2222) {
+          document.getElementById('x1').innerHTML = "";
+            document.getElementById('x2').innerHTML = "";
+            textbox1111Element.classList.remove("red");
+            textbox2222Element.classList.remove("red");
+            textbox1111Element.classList.add("green");
+            textbox2222Element.classList.add("green");
+        } else {
+            textbox1111Element.classList.remove("green");
+            textbox2222Element.classList.remove("green");
+            textbox1111Element.classList.add("red");
+            textbox2222Element.classList.add("red");
+        }
+        if (textbox2222 == ""){
+        textbox1111Element.classList.remove("red");
+            textbox2222Element.classList.remove("red");
+            textbox1111Element.classList.remove("green");
+            textbox2222Element.classList.remove("green");
+            textbox1111Element.classList.add("white");
+            textbox2222Element.classList.add("white");
+            }
+        
+            if (textbox1111 == ""){
+        textbox1111Element.classList.remove("red");
+            textbox2222Element.classList.remove("red");
+            textbox1111Element.classList.remove("green");
+            textbox2222Element.classList.remove("green");
+            textbox1111Element.classList.add("white");
+            textbox2222Element.classList.add("white");
+            }
+            if (event.key === "F8" ) {// 3-8-2024 F8 hotkey to compare textbox
+    event.preventDefault();
+    compareInputs()
+    compareTextBoxes4()
+   
+  }
+    }
+    
+    
+    
+    
+    function check5() {
+        var textbox11111 = document.getElementById("Textbox 5").value;
+        var textbox22222 = document.getElementById("Textbox 15").value;
+        var textbox11111Element = document.getElementById("Textbox 5");
+        var textbox22222Element = document.getElementById("Textbox 15");
+        
+        if (textbox11111 == textbox22222) {
+          document.getElementById('x1').innerHTML = "";
+            document.getElementById('x2').innerHTML = "";
+            textbox11111Element.classList.remove("red");
+            textbox22222Element.classList.remove("red");
+            textbox11111Element.classList.add("green");
+            textbox22222Element.classList.add("green");
+        } else {
+            textbox11111Element.classList.remove("green");
+            textbox22222Element.classList.remove("green");
+            textbox11111Element.classList.add("red");
+            textbox22222Element.classList.add("red");
+        }
+        if (textbox22222 == ""){
+        textbox11111Element.classList.remove("red");
+            textbox22222Element.classList.remove("red");
+            textbox11111Element.classList.remove("green");
+            textbox22222Element.classList.remove("green");
+            textbox11111Element.classList.add("white");
+            textbox22222Element.classList.add("white");
+            }
+        
+            if (textbox11111 == ""){
+        textbox11111Element.classList.remove("red");
+            textbox22222Element.classList.remove("red");
+            textbox11111Element.classList.remove("green");
+            textbox22222Element.classList.remove("green");
+            textbox11111Element.classList.add("white");
+            textbox22222Element.classList.add("white");
+            }
+            if (event.key === "F8" ) {// 3-8-2024 F8 hotkey to compare textbox
+    event.preventDefault();
+    compareInputs()
+    compareTextBoxes5()
+   
+  }
+    }
+    
+    
+    
+    
+    function check6() {
+        var textbox111111 = document.getElementById("Textbox 6").value;
+        var textbox222222 = document.getElementById("Textbox 16").value;
+        var textbox111111Element = document.getElementById("Textbox 6");
+        var textbox222222Element = document.getElementById("Textbox 16");
+        
+        if (textbox111111 == textbox222222) {
+          document.getElementById('x1').innerHTML = "";
+            document.getElementById('x2').innerHTML = "";
+            textbox111111Element.classList.remove("red");
+            textbox222222Element.classList.remove("red");
+            textbox111111Element.classList.add("green");
+            textbox222222Element.classList.add("green");
+        } else {
+            textbox111111Element.classList.remove("green");
+            textbox222222Element.classList.remove("green");
+            textbox111111Element.classList.add("red");
+            textbox222222Element.classList.add("red");
+        }
+        if (textbox222222 == ""){
+        textbox111111Element.classList.remove("red");
+            textbox222222Element.classList.remove("red");
+            textbox111111Element.classList.remove("green");
+            textbox222222Element.classList.remove("green");
+            textbox111111Element.classList.add("white");
+            textbox222222Element.classList.add("white");
+            }
+        
+            if (textbox111111 == ""){
+        textbox111111Element.classList.remove("red");
+            textbox222222Element.classList.remove("red");
+            textbox111111Element.classList.remove("green");
+            textbox222222Element.classList.remove("green");
+            textbox111111Element.classList.add("white");
+            textbox222222Element.classList.add("white");
+            }
+            if (event.key === "F8" ) {// 3-8-2024 F8 hotkey to compare textbox
+    event.preventDefault();
+    compareInputs()
+    compareTextBoxes6()
+   
+  }
+    }
+    
+    function check7() {
+        var textbox1111111 = document.getElementById("Textbox 7").value;
+        var textbox2222222 = document.getElementById("Textbox 17").value;
+        var textbox1111111Element = document.getElementById("Textbox 7");
+        var textbox2222222Element = document.getElementById("Textbox 17");
+        
+        if (textbox1111111 == textbox2222222) {
+          document.getElementById('x1').innerHTML = "";
+            document.getElementById('x2').innerHTML = "";
+            textbox1111111Element.classList.remove("red");
+            textbox2222222Element.classList.remove("red");
+            textbox1111111Element.classList.add("green");
+            textbox2222222Element.classList.add("green");
+        } else {
+            textbox1111111Element.classList.remove("green");
+            textbox2222222Element.classList.remove("green");
+            textbox1111111Element.classList.add("red");
+            textbox2222222Element.classList.add("red");
+        }
+        if (textbox2222222 == ""){
+        textbox1111111Element.classList.remove("red");
+            textbox2222222Element.classList.remove("red");
+            textbox1111111Element.classList.remove("green");
+            textbox2222222Element.classList.remove("green");
+            textbox1111111Element.classList.add("white");
+            textbox2222222Element.classList.add("white");
+            }
+        
+            if (textbox1111111 == ""){
+        textbox1111111Element.classList.remove("red");
+            textbox2222222Element.classList.remove("red");
+            textbox1111111Element.classList.remove("green");
+            textbox2222222Element.classList.remove("green");
+            textbox1111111Element.classList.add("white");
+            textbox2222222Element.classList.add("white");
+            }
+            if (event.key === "F8" ) {// 3-8-2024 F8 hotkey to compare textbox
+    event.preventDefault();
+    compareInputs()
+    compareTextBoxes7()
+   
+  }
+    }
+    
+    function check8() {
+        var textbox11111111 = document.getElementById("Textbox 8").value;
+        var textbox22222222 = document.getElementById("Textbox 18").value;
+        var textbox11111111Element = document.getElementById("Textbox 8");
+        var textbox22222222Element = document.getElementById("Textbox 18");
+        
+        if (textbox11111111 == textbox22222222) {
+          document.getElementById('x1').innerHTML = "";
+            document.getElementById('x2').innerHTML = "";
+            textbox11111111Element.classList.remove("red");
+            textbox22222222Element.classList.remove("red");
+            textbox11111111Element.classList.add("green");
+            textbox22222222Element.classList.add("green");
+        } else {
+            textbox11111111Element.classList.remove("green");
+            textbox22222222Element.classList.remove("green");
+            textbox11111111Element.classList.add("red");
+            textbox22222222Element.classList.add("red");
+        }
+        if (textbox22222222 == ""){
+        textbox11111111Element.classList.remove("red");
+            textbox22222222Element.classList.remove("red");
+            textbox11111111Element.classList.remove("green");
+            textbox22222222Element.classList.remove("green");
+            textbox11111111Element.classList.add("white");
+            textbox22222222Element.classList.add("white");
+            }
+        
+            if (textbox11111111 == ""){
+        textbox11111111Element.classList.remove("red");
+            textbox22222222Element.classList.remove("red");
+            textbox11111111Element.classList.remove("green");
+            textbox22222222Element.classList.remove("green");
+            textbox11111111Element.classList.add("white");
+            textbox22222222Element.classList.add("white");
+            }
+            if (event.key === "F8" ) {// 3-8-2024 F8 hotkey to compare textbox
+    event.preventDefault();
+    compareInputs()
+    compareTextBoxes8()
+   
+  }
+    }
+    
+    function check9() {
+        var textbox111111111 = document.getElementById("Textbox 9").value;
+        var textbox222222222 = document.getElementById("Textbox 19").value;
+        var textbox111111111Element = document.getElementById("Textbox 9");
+        var textbox222222222Element = document.getElementById("Textbox 19");
+        
+        if (textbox111111111 == textbox222222222) {
+          document.getElementById('x1').innerHTML = "";
+            document.getElementById('x2').innerHTML = "";
+            textbox111111111Element.classList.remove("red");
+            textbox222222222Element.classList.remove("red");
+            textbox111111111Element.classList.add("green");
+            textbox222222222Element.classList.add("green");
+        } else {
+            textbox111111111Element.classList.remove("green");
+            textbox222222222Element.classList.remove("green");
+            textbox111111111Element.classList.add("red");
+            textbox222222222Element.classList.add("red");
+        }
+        if (textbox222222222 == ""){
+        textbox111111111Element.classList.remove("red");
+            textbox222222222Element.classList.remove("red");
+            textbox111111111Element.classList.remove("green");
+            textbox222222222Element.classList.remove("green");
+            textbox111111111Element.classList.add("white");
+            textbox222222222Element.classList.add("white");
+            }
+        
+            if (textbox111111111 == ""){
+        textbox111111111Element.classList.remove("red");
+            textbox222222222Element.classList.remove("red");
+            textbox111111111Element.classList.remove("green");
+            textbox222222222Element.classList.remove("green");
+            textbox111111111Element.classList.add("white");
+            textbox222222222Element.classList.add("white");
+            }
+            if (event.key === "F8" ) {// 3-8-2024 F8 hotkey to compare textbox
+    event.preventDefault();
+    compareInputs()
+    compareTextBoxes9()
+   
+  }
+    }
+    
+    
+    
+    function check10() {
+        var textbox1111111111 = document.getElementById("Textbox 10").value;
+        var textbox2222222222 = document.getElementById("Textbox 20").value;
+        var textbox1111111111Element = document.getElementById("Textbox 10");
+        var textbox2222222222Element = document.getElementById("Textbox 20");
+        
+        if (textbox1111111111 == textbox2222222222) {
+          document.getElementById('x1').innerHTML = "";
+            document.getElementById('x2').innerHTML = "";
+            textbox1111111111Element.classList.remove("red");
+            textbox2222222222Element.classList.remove("red");
+            textbox1111111111Element.classList.add("green");
+            textbox2222222222Element.classList.add("green");
+        } else {
+            textbox1111111111Element.classList.remove("green");
+            textbox2222222222Element.classList.remove("green");
+            textbox1111111111Element.classList.add("red");
+            textbox2222222222Element.classList.add("red");
+        }
+        if (textbox2222222222 == ""){
+        textbox1111111111Element.classList.remove("red");
+            textbox2222222222Element.classList.remove("red");
+            textbox1111111111Element.classList.remove("green");
+            textbox2222222222Element.classList.remove("green");
+            textbox1111111111Element.classList.add("white");
+            textbox2222222222Element.classList.add("white");
+            }
+        
+            if (textbox1111111111 == ""){
+        textbox1111111111Element.classList.remove("red");
+            textbox2222222222Element.classList.remove("red");
+            textbox1111111111Element.classList.remove("green");
+            textbox2222222222Element.classList.remove("green");
+            textbox1111111111Element.classList.add("white");
+            textbox2222222222Element.classList.add("white");
+            }
+            if (event.key === "F8" ) {// 3-8-2024 F8 hotkey to compare textbox
+    event.preventDefault();
+    compareInputs()
+    compareTextBoxes10()
+   
+  }
+    }
+
+//set focus to textbox and copy previous textbox
+function moveToNextTextbox(event, nextIndex) {
+  if (event.key === 'Enter') { // Check if Enter key is pressed
+    event.preventDefault(); // Prevent default Enter behavior (form submission)
+    var nextTextbox = document.getElementById('Textbox ' + nextIndex);
+    if (nextTextbox) {
+      nextTextbox.focus(); // Focus on the next textbox
+    }
+  }
+  if (event.key === 'CapsLock') { // Check if Control key is pressed
+    event.preventDefault(); // Prevent default Control behavior (form submission)
+    //console.log('control pressed')
+    console.log(nextIndex)
+    //console.log(document.getElementById('Textbox ' + (nextIndex  + 18)).value)
+    //var nextTextbox = document.getElementById('Textbox ' + nextIndex - 1 );
+   
+    if (nextIndex > 2 && nextIndex  !== 12) {
+      document.getElementById('Textbox '+ (nextIndex - 1 )).value = document.getElementById('Textbox ' + (nextIndex  - 2) ).value
+      document.getElementById('Textbox '+ nextIndex).focus()
+              
+    } else if (nextIndex = 1) {
+      document.getElementById('Textbox ' + (nextIndex  + 19)).value = document.getElementById('Textbox ' + (nextIndex  + 18) ).value
+       }
+   
+  }
+              check1();
+              check2();
+              check3();
+              check4();
+              check5();
+              check6();
+              check7();
+              check8();
+              check9();
+              check10();
+}
+
+function moveTo(event) {
+  if (event.key === 'Enter') { // Check if Enter key is pressed
+    event.preventDefault(); // Prevent default Enter behavior (form submission)
+  
+    var nextTextbox = document.getElementById('Textbox 14');
+     // send joinedResult to textbox13
+    document.getElementById('Textbox 13').value = document.getElementById('joinedResult').value
+     // send joinedResultsss to textbox3
+    document.getElementById('Textbox 3').value = document.getElementById('joinedResultsss').value
+    check3(); //check if textbox3 is equal to textbox3
+  
+      nextTextbox.focus(); // Focus on the next textbox 14
+ 
+  }
+}
+
+
+
+
+// ***listener F6 to clear textbox
+document.addEventListener('keydown', function(event) {
+            // Check if F6 is pressed
+            if (event.key === 'F6') { // Key code for F6 is 117
+                event.preventDefault(); // Prevent default behavior of the key combination
+                clearTextboxes(); // Call the function to clear textboxes
+                clearListBox(); // clear listbox
+                // reloadPage(); //reloadPage
+                 document.getElementById('x1').innerHTML = "";
+            document.getElementById('x2').innerHTML = "";
+
+            }
+        });
+        
+// ***listener F11 to setfocus textInput
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'F11') {
+    event.preventDefault();
+    // F11 key was pressed
+    
+    document.getElementById("textInput").focus();
+     document.getElementById("textInput").value = document.getElementById("Textbox 3").value;
+     splitText();
+     res1();
+     document.getElementById("Textbox 4").focus();
+     
+  }
+});      
+        
+  // ***listener F12 to search input
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'F12') {
+    event.preventDefault();
+  
+    
+    
+    // paste from textbox3 into input
+     document.getElementById("textInput").focus();
+     //do not copy to textinput if Textbox 3 = null
+    if (document.getElementById("Textbox 3").value !== '') {document.getElementById("textInput").value = document.getElementById("Textbox 3").value;
+     }
+     splitText();
+     res1();
+     
+    // F11 key was pressed
+    document.getElementById("searchInput").focus();
+  }
+});        
+
+ function clearTextboxes() {
+        var textboxes = document.querySelectorAll('input[type="text"]');
+        textboxes.forEach(function(textbox) {
+            textbox.value = '';
+            // textbox.style.backgroundColor = 'white'; // Set background color to white
+        });
+clearListBox() 
+document.getElementById("Textbox 1").focus(); // Set focus back to textbox1
+textboxcolorreset()
+    }
+// reset color
+function textboxcolorreset(){
+ for (var i = 1; i <= 20; i++) {
+document.getElementById('Textbox ' + i).classList.remove("red");
+            document.getElementById('Textbox ' + i).classList.remove("green");
+           
+           document.getElementById('Textbox ' + i).classList.add("white");
+                               }
+
+
+            document.getElementById("joinedResult").classList.remove("red");
+            document.getElementById("joinedResult").classList.remove("green");
+           
+            document.getElementById("joinedResult").classList.add("white");
+
+
+            document.getElementById("joinedResultsss").classList.remove("red");
+            document.getElementById("joinedResultsss").classList.remove("green");
+           
+            document.getElementById("joinedResultsss").classList.add("white");
+                      
+ }
+
+
+//F3 to setfocus textbox 11
+document.addEventListener('keydown', function(event) {
+            // Check if F3 pressed
+            if (event.keyCode === 114) { // Key code for F3 is 104
+                event.preventDefault(); // Prevent default behavior of the key combination
+                document.getElementById("Textbox 11").focus();
+            }
+        });
+
+// clear both list box
+function clearListBox() {
+    var listbox1 = document.getElementById("resultsList");
+    var listbox2 = document.getElementById("searchResults");
+
+
+    listbox1.innerHTML = ''
+    listbox2.innerHTML = ''
+    }
+
+function compareInputs() {
+   
+            const input1 = document.getElementById('Textbox ' + a).value;
+            const input2 = document.getElementById('Textbox ' + b).value;
+            const maxLength = Math.max(input1.length, input2.length);
+            let text1 = '';
+            let text2 = '';
+
+            for (let i = 0; i < maxLength; i++) {
+                const char1 = input1.charAt(i) || '';
+                const char2 = input2.charAt(i) || '';
+
+                if (char1 !== char2) {
+                    text1 += `<span class="highlight">${char1}</span>`;
+                    text2 += `<span class="highlight">${char2}</span>`;
+                } else {
+                    text1 += char1;
+                    text2 += char2;
+                }
+            }
+
+            document.getElementById('x1').innerHTML = text1;
+            document.getElementById('x2').innerHTML = text2;
+        }
+
+// Function to suppress function keys
+function suppressFunctionKeys(event) {
+    // List of function key codes
+    var functionKeys = [
+        112, // F1
+        113, // F2
+        114, // F3
+        115, // F4
+        116, // F5
+        117, // F6
+        118, // F7
+        119, // F8
+        120, // F9
+        121, // F10
+        122, // F11
+        123  // F12
+    ];
+
+    // Prevent default behavior for function keys
+    if (functionKeys.includes(event.keyCode)) {
+        event.preventDefault();
+    }
+}
+
+// Add event listener to capture key presses
+document.addEventListener('keydown', suppressFunctionKeys);
+
+// 3-7-2024 ***set focus Textbox 11 on recall (R1 and R2) sava data
+// 3-7-2024 ***set focus Textbox 14 afer search ndc -->enter -->item 1 selected --> called check() function --> if correct --> Textbox 14 set focus
+// 3-8-2024 ***Change compare textbox hotkey to F8
+// 3-8-2024 ***Change Clear textbox to Escape key
+// 3-16-2024 ***file search empty then search online text file 
+// 3-16-2024 ***highlight difference textbo4 and 14
+// 3-17-2024 ***highlight differencec all textbox
+// 3-17-2024 ***suppress all normal function keys
+
+ 
+// Sample Database
   const database = [
     "XOPENEX HFA 45 MCG 63402-0510-01",
 "(DECARA) VITAMIN D3 50000 75834-0020-01",
@@ -13776,953 +14806,11 @@ function splitText() {
 "ZYRTEC-D TABLET 50580-0728-52"
 
   ];
-  
-
-  
-  
-// select first item on search list
-function selectFirstItem() {
- 
-  if (event.key === 'Enter') { // Check if Enter key is pressed
-    event.preventDefault(); // Prevent default Enter behavior (form submission)
-    var fileInput = document.getElementById('fileInput');
-    var fileList = fileInput.files;
-    
-    if (fileList.length !== 0) {
-     
-    
-    document.getElementById("searchTerm").value = document.getElementById("searchInput").value
-   
-    searchfile();
-    } 
-    else {    document.getElementById("searchTerm").value = document.getElementById("searchInput").value
-             searchText();
-      //  alert("Please select a file.");
-        //return;
-    }
-    var listbox = document.getElementById("resultsList");
-    
-    listbox.selectedIndex = 0; // Set the selectedIndex to 0 to select the first item
-    displayDetails(); // 3-4-2024
-    
-    listbox.focus();
-    check(); 3-7
-  }
-}
-
-
-  // Function to search the database
- 
-  function res1(){
-const result00 = document.getElementById('box1').value;
-    const result11 = document.getElementById('box2').value;
-const result22 = document.getElementById('box3').value;
-const result33 = document.getElementById('box4').value;
-const result44 = document.getElementById('box5').value;
-const result55 = document.getElementById('box6').value;
-const result66 = document.getElementById('box7').value;
-const result77 = document.getElementById('box8').value;
-const result88 = document.getElementById('box9').value;
-const result99 = document.getElementById('box10').value;
-   document.getElementById('joinedResultsss').value = result00.toUpperCase() + result11.toUpperCase() + result22.toUpperCase() + result33.toUpperCase() + result44.toUpperCase() + result55.toUpperCase() + result66.toUpperCase() + result77.toUpperCase() + result88.toUpperCase() + result99.toUpperCase();
- check();
-}
-// **********************************
-  function search() {
-    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-    const resultsList = document.getElementById('resultsList');
-    
-    resultsList.innerHTML = '';
-
-    for (let item of database) {
-      if (item.toLowerCase().includes(searchTerm)) {
-        const option = document.createElement('option');
-        option.text = item;
-        resultsList.add(option);
-      }
-    }
-    
-  }
-  
-  // **********************************
-       document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {                   // 3-8-2024 change clear hotkey to Escape button
-                event.preventDefault();
-                const activeTextbox = document.activeElement;
-                if (activeTextbox.tagName === 'INPUT') {
-                    activeTextbox.value = '';
-                }
-            }
-        });
-        
-        // **************************
-     function res0(){const result1 = document.getElementById('result1').value;
-    const result2 = document.getElementById('result2').value;
-    const result3 = document.getElementById('result3').value;
-    const result4 = document.getElementById('result4').value;
-    const result5 = document.getElementById('result5').value;
-    const result6 = document.getElementById('result6').value;
-    const result7 = document.getElementById('result7').value;
-    const result8 = document.getElementById('result8').value;
-    const result9 = document.getElementById('result9').value;
-    const result10 = document.getElementById('result10').value;
-    
-   document.getElementById('joinedResult').value = result1.toUpperCase() + result2.toUpperCase() + result3.toUpperCase() + result4.toUpperCase() + result5.toUpperCase() + result6.toUpperCase() + result7.toUpperCase() + result8.toUpperCase() + result9.toUpperCase() + result10.toUpperCase();
-
-const result00 = document.getElementById('box1').value;
-    const result11 = document.getElementById('box2').value;
-const result22 = document.getElementById('box3').value;
-const result33 = document.getElementById('box4').value;
-const result44 = document.getElementById('box5').value;
-const result55 = document.getElementById('box6').value;
-const result66 = document.getElementById('box7').value;
-const result77 = document.getElementById('box8').value;
-const result88 = document.getElementById('box9').value;
-const result99 = document.getElementById('box10').value;
-   document.getElementById('joinedResultsss').value = result00.toUpperCase() + result11.toUpperCase() + result22.toUpperCase() + result33.toUpperCase() + result44.toUpperCase() + result55.toUpperCase() + result66.toUpperCase() + result77.toUpperCase() + result88.toUpperCase() + result99.toUpperCase();
-     check()
-     }
-     
-     
-    // ************************************************ 
-     
-     
-         document.addEventListener('keydown', function(event) {
-            if (event.key === 'Enter') {
-              check1();
-              check2();
-              check3();
-              check4();
-              check5();
-              check6();
-              check7();
-              check8();
-              check9();
-              check10();
-              replacesearch(); //call replacesearch
-                const result1 = document.getElementById('result1').value;
-    const result2 = document.getElementById('result2').value;
-    const result3 = document.getElementById('result3').value;
-    const result4 = document.getElementById('result4').value;
-    const result5 = document.getElementById('result5').value;
-    const result6 = document.getElementById('result6').value;
-    const result7 = document.getElementById('result7').value;
-    const result8 = document.getElementById('result8').value;
-    const result9 = document.getElementById('result9').value;
-    const result10 = document.getElementById('result10').value;
-    
-   document.getElementById('joinedResult').value = result1.toUpperCase() + result2.toUpperCase() + result3.toUpperCase() + result4.toUpperCase() + result5.toUpperCase() + result6.toUpperCase() + result7.toUpperCase() + result8.toUpperCase() + result9.toUpperCase() + result10.toUpperCase();
-
-const result11 = document.getElementById('box1').value;
-    const result22 = document.getElementById('box2').value;
-   document.getElementById('joinedResultsss').value = result11.toUpperCase() + result22.toUpperCase();
-            }
-        });
-  // ****Function to display details when an item is selected
-  function displayDetails() {
-    replaceresultslist();
-    const selectedItem = searchfilter
-    const [result1, result2, result3, result4, result5, result6, result7, result8, result9, result10] = selectedItem.split(' ');
-
-    document.getElementById('result1').value = result1 || '';
-    document.getElementById('result2').value = result2 || '';
-    document.getElementById('result3').value = result3 || '';
-    document.getElementById('result4').value = result4 || '';
-    document.getElementById('result5').value = result5 || '';
-    document.getElementById('result6').value = result6 || '';
-    document.getElementById('result7').value = result7 || '';
-    document.getElementById('result8').value = result8 || '';
-    document.getElementById('result9').value = result9 || '';
-    document.getElementById('result10').value = result10 || '';
-    //clear ndc 
-    for (var i = 1; i <= 10; i++) {
-       var inputText = document.getElementById('result' + i).value;
-
-    
-    // Use isNaN() function to check if the input is not a number
-    if (!isNaN(inputText) && inputText.length === 11) {
-     document.getElementById('result' + i).value = ""
-     } else 
-     {document.getElementById('result' + i).value =  document.getElementById('result' + i).value;
-    }
-     }
-     
-    // call combine textbox for search
-     replacesearch();
-     res0();
-    
-  }
- 
- //resultslist filter for <>\/%
- 
- function replaceresultslist() {
-
-       var textInput = document.getElementById('resultsList').value;
-      //remove dashes from ndc on search 
-       var inputText = textInput;
-       var textlength1 = textInput.length-2
-       var textlength2 = textInput.length
-    var outputText = inputText.substring(0, textInput.length-8) +inputText.substring(textInput.length - 7 , textInput.length-3) +inputText.substring(textlength1 , textInput.length)
-     textInput = outputText;
-     //***********************************
-      var textInput = textInput.toUpperCase()
-      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
-      var textInput = trimmedText.replace(new RegExp("CAPSULE", 'g'), "");
-      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
-      var textInput = trimmedText.replace(new RegExp("CAP", 'g'), "");
-      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
-      var textInput = trimmedText.replace(new RegExp("TABLET", 'g'), "");
-      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
-      var textInput = trimmedText.replace(new RegExp("MG", 'g'), "");
-      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
-      
-      
-      var textInput = trimmedText.replace(/\//g, ' ');
-      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
-      var textInput = trimmedText.replace(/\\/g, ' ');
-      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
-     var textInput = trimmedText.replace(/-/g, ' ');
-      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
-      var textInput = trimmedText.replace(/\//g, '');
-      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
-      var textInput = trimmedText.replace(/,/g, '');
-      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
-      var textInput = trimmedText.replace(/\(/g, "");
-      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
-     var textInput = trimmedText.replace(/\)/g, '');
-      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
-      
-     var textInput = trimmedText.replace(/%/g, '');
-      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
-      
-      var textInput = trimmedText.replace(new RegExp("ORAL",'g'), "");
-      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
-      var textInput  = trimmedText.replace(new RegExp("TAB", 'g'), "");
-      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
-       searchfilter = trimmedText
-     
- }
- 
- // find and replace search results (),\/*
- function replacesearch() {
- for (var i = 1; i <= 10; i++) {
-       var textInput = document.getElementById('result' + i).value;
-      var textInput = textInput.toUpperCase()
-      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
-      var textInput = trimmedText.replace(new RegExp("CAPSULE", 'g'), "");
-      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
-      var textInput = trimmedText.replace(new RegExp("CAP", 'g'), "");
-      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
-      var textInput = trimmedText.replace(new RegExp("TABLET", 'g'), "");
-      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
-      var textInput = trimmedText.replace(new RegExp("MG", 'g'), "");
-      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
-      
-      
-      var textInput = trimmedText.replace(/\//g, '');
-      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
-      var textInput = trimmedText.replace(/\\/g, '');
-      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
-     var textInput = trimmedText.replace(/-/g, '');
-      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
-      var textInput = trimmedText.replace(/\//g, '');
-      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
-      var textInput = trimmedText.replace(/,/g, '');
-      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
-      var textInput = trimmedText.replace(/\(/g, "");
-      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
-     var textInput = trimmedText.replace(/\)/g, '');
-      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
-      
-     var textInput = trimmedText.replace(/%/g, '');
-      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
-      
-      var textInput = trimmedText.replace(new RegExp("ORAL",'g'), "");
-      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
-      var textInput  = trimmedText.replace(new RegExp("TAB", 'g'), "");
-      var trimmedText = textInput.replace(/\s+/g, ' ').trim();
-       document.getElementById('result' + i).value = trimmedText
-     }
- }
-  // Function to clear a specific textbox
-  function clearTextbox(id) {
-    document.getElementById(id).value = '';
-  }
-  
-  function check() {
-        var textbox1 = document.getElementById("joinedResult").value;
-        var textbox2 = document.getElementById("joinedResultsss").value;
-        var textbox1Element = document.getElementById("joinedResult");
-        var textbox2Element = document.getElementById("joinedResultsss");
-        
-        if (textbox1 == textbox2) {
-            textbox1Element.classList.remove("red");
-            textbox2Element.classList.remove("red");
-            textbox1Element.classList.add("green");
-            textbox2Element.classList.add("green");
-              // send joinedResultsss to textbox 13
-             document.getElementById('Textbox 13').value = document.getElementById('joinedResult').value
-             // send joinedResultsss to textbox 3 
-             document.getElementById('Textbox 3').value = document.getElementById('joinedResultsss').value
-             check3();
-           
-             document.getElementById('Textbox 14').focus()
-        } else {
-            textbox1Element.classList.remove("green");
-            textbox2Element.classList.remove("green");
-            textbox1Element.classList.add("red");
-            textbox2Element.classList.add("red");
-        }
-        if (textbox2 == ""){
-        textbox1Element.classList.remove("red");
-            textbox2Element.classList.remove("red");
-            textbox1Element.classList.remove("green");
-            textbox2Element.classList.remove("green");
-            textbox1Element.classList.add("white");
-            textbox2Element.classList.add("white");
-            }
-        
-            if (textbox1 == ""){
-        textbox1Element.classList.remove("red");
-            textbox2Element.classList.remove("red");
-            textbox1Element.classList.remove("green");
-            textbox2Element.classList.remove("green");
-            textbox1Element.classList.add("white");
-            textbox2Element.classList.add("white");
-            }
-    }
-    
-      //*******************first half of code 
-
-
-function toUpperCase(element) {
-  // Convert the input value to uppercase
-  element.value = element.value.toUpperCase();
-var textbox4 = document.getElementById("Textbox 4").value;
-
-        var textbox14 = document.getElementById("Textbox 14").value;
-          console.log(textbox4)
-  console.log(textbox14)
-        if (textbox4 !== "" && textbox14 !== "") {
-  compareInputs()
-            }
-}
-
-
-    function check1() {
-        var textbox1 = document.getElementById("Textbox 1").value;
-        var textbox2 = document.getElementById("Textbox 11").value;
-        var textbox1Element = document.getElementById("Textbox 1");
-        var textbox2Element = document.getElementById("Textbox 11");
-        
-        if (textbox1 == textbox2) {
-            textbox1Element.classList.remove("red");
-            textbox2Element.classList.remove("red");
-            textbox1Element.classList.add("green");
-            textbox2Element.classList.add("green");
-        } else {
-            textbox1Element.classList.remove("green");
-            textbox2Element.classList.remove("green");
-            textbox1Element.classList.add("red");
-            textbox2Element.classList.add("red");
-        }
-        if (textbox2 == ""){
-        textbox1Element.classList.remove("red");
-            textbox2Element.classList.remove("red");
-            textbox1Element.classList.remove("green");
-            textbox2Element.classList.remove("green");
-            textbox1Element.classList.add("white");
-            textbox2Element.classList.add("white");
-            }
-        
-            if (textbox1 == ""){
-        textbox1Element.classList.remove("red");
-            textbox2Element.classList.remove("red");
-            textbox1Element.classList.remove("green");
-            textbox2Element.classList.remove("green");
-            textbox1Element.classList.add("white");
-            textbox2Element.classList.add("white");
-            }
-            if (event.key === "F8" ) {        // 3-8-2024 F8 hotkey to compare textbox
-    event.preventDefault();
-    compareTextBoxes1()
-   
-  }
-    }
-    
-    function check2() {
-        var textbox11 = document.getElementById("Textbox 2").value;
-        var textbox22 = document.getElementById("Textbox 12").value;
-        var textbox11Element = document.getElementById("Textbox 2");
-        var textbox22Element = document.getElementById("Textbox 12");
-        
-        if (textbox11 == textbox22) {
-            textbox11Element.classList.remove("red");
-            textbox22Element.classList.remove("red");
-            textbox11Element.classList.add("green");
-            textbox22Element.classList.add("green");
-        } else {
-            textbox11Element.classList.remove("green");
-            textbox22Element.classList.remove("green");
-            textbox11Element.classList.add("red");
-            textbox22Element.classList.add("red");
-        }
-        if (textbox22 == ""){
-        textbox11Element.classList.remove("red");
-            textbox22Element.classList.remove("red");
-            textbox11Element.classList.remove("green");
-            textbox22Element.classList.remove("green");
-            textbox11Element.classList.add("white");
-            textbox22Element.classList.add("white");
-            }
-        
-            if (textbox11 == ""){
-        textbox11Element.classList.remove("red");
-            textbox22Element.classList.remove("red");
-            textbox11Element.classList.remove("green");
-            textbox22Element.classList.remove("green");
-            textbox11Element.classList.add("white");
-            textbox22Element.classList.add("white");
-            }
-            if (event.key === "F8" ) {   // 3-8-2024 F8 hotkey to compare textbox
-    event.preventDefault();
-    compareTextBoxes2()
-   
-  }
-    }
-    
-    
-    function check3() {
-        var textbox111 = document.getElementById("Textbox 3").value;
-        var textbox222 = document.getElementById("Textbox 13").value;
-        var textbox111Element = document.getElementById("Textbox 3");
-        var textbox222Element = document.getElementById("Textbox 13");
-        
-        if (textbox111 == textbox222) {
-            textbox111Element.classList.remove("red");
-            textbox222Element.classList.remove("red");
-            textbox111Element.classList.add("green");
-            textbox222Element.classList.add("green");
-        } else {
-            textbox111Element.classList.remove("green");
-            textbox222Element.classList.remove("green");
-            textbox111Element.classList.add("red");
-            textbox222Element.classList.add("red");
-        }
-        if (textbox222 == ""){
-        textbox111Element.classList.remove("red");
-            textbox222Element.classList.remove("red");
-            textbox111Element.classList.remove("green");
-            textbox222Element.classList.remove("green");
-            textbox111Element.classList.add("white");
-            textbox222Element.classList.add("white");
-            }
-        
-            if (textbox111 == ""){
-        textbox111Element.classList.remove("red");
-            textbox222Element.classList.remove("red");
-            textbox111Element.classList.remove("green");
-            textbox222Element.classList.remove("green");
-            textbox111Element.classList.add("white");
-            textbox222Element.classList.add("white");
-            }
-            if (event.key === "F8" ) {// 3-8-2024 F8 hotkey to compare textbox
-    event.preventDefault();
-    compareTextBoxes3()
-   
-  
-            }
-    }
-    
-    
-    function check4() {
-        var textbox1111 = document.getElementById("Textbox 4").value;
-        var textbox2222 = document.getElementById("Textbox 14").value;
-        var textbox1111Element = document.getElementById("Textbox 4");
-        var textbox2222Element = document.getElementById("Textbox 14");
-        
-        if (textbox1111 == textbox2222) {
-             document.getElementById('x1').innerHTML = "";
-            document.getElementById('x2').innerHTML = "";
-            textbox1111Element.classList.remove("red");
-            textbox2222Element.classList.remove("red");
-            textbox1111Element.classList.add("green");
-            textbox2222Element.classList.add("green");
-            
-        } else {
-            textbox1111Element.classList.remove("green");
-            textbox2222Element.classList.remove("green");
-            textbox1111Element.classList.add("red");
-            textbox2222Element.classList.add("red");
-        }
-        if (textbox2222 == ""){
-        textbox1111Element.classList.remove("red");
-            textbox2222Element.classList.remove("red");
-            textbox1111Element.classList.remove("green");
-            textbox2222Element.classList.remove("green");
-            textbox1111Element.classList.add("white");
-            textbox2222Element.classList.add("white");
-            }
-        
-            if (textbox1111 == ""){
-        textbox1111Element.classList.remove("red");
-            textbox2222Element.classList.remove("red");
-            textbox1111Element.classList.remove("green");
-            textbox2222Element.classList.remove("green");
-            textbox1111Element.classList.add("white");
-            textbox2222Element.classList.add("white");
-            }
-            if (event.key === "F8" ) {// 3-8-2024 F8 hotkey to compare textbox
-    event.preventDefault();
-    compareTextBoxes4()
-   
-  }
-    }
-    
-    
-    
-    
-    function check5() {
-        var textbox11111 = document.getElementById("Textbox 5").value;
-        var textbox22222 = document.getElementById("Textbox 15").value;
-        var textbox11111Element = document.getElementById("Textbox 5");
-        var textbox22222Element = document.getElementById("Textbox 15");
-        
-        if (textbox11111 == textbox22222) {
-            textbox11111Element.classList.remove("red");
-            textbox22222Element.classList.remove("red");
-            textbox11111Element.classList.add("green");
-            textbox22222Element.classList.add("green");
-        } else {
-            textbox11111Element.classList.remove("green");
-            textbox22222Element.classList.remove("green");
-            textbox11111Element.classList.add("red");
-            textbox22222Element.classList.add("red");
-        }
-        if (textbox22222 == ""){
-        textbox11111Element.classList.remove("red");
-            textbox22222Element.classList.remove("red");
-            textbox11111Element.classList.remove("green");
-            textbox22222Element.classList.remove("green");
-            textbox11111Element.classList.add("white");
-            textbox22222Element.classList.add("white");
-            }
-        
-            if (textbox11111 == ""){
-        textbox11111Element.classList.remove("red");
-            textbox22222Element.classList.remove("red");
-            textbox11111Element.classList.remove("green");
-            textbox22222Element.classList.remove("green");
-            textbox11111Element.classList.add("white");
-            textbox22222Element.classList.add("white");
-            }
-            if (event.key === "F8" ) {// 3-8-2024 F8 hotkey to compare textbox
-    event.preventDefault();
-    compareTextBoxes5()
-   
-  }
-    }
-    
-    
-    
-    
-    function check6() {
-        var textbox111111 = document.getElementById("Textbox 6").value;
-        var textbox222222 = document.getElementById("Textbox 16").value;
-        var textbox111111Element = document.getElementById("Textbox 6");
-        var textbox222222Element = document.getElementById("Textbox 16");
-        
-        if (textbox111111 == textbox222222) {
-            textbox111111Element.classList.remove("red");
-            textbox222222Element.classList.remove("red");
-            textbox111111Element.classList.add("green");
-            textbox222222Element.classList.add("green");
-        } else {
-            textbox111111Element.classList.remove("green");
-            textbox222222Element.classList.remove("green");
-            textbox111111Element.classList.add("red");
-            textbox222222Element.classList.add("red");
-        }
-        if (textbox222222 == ""){
-        textbox111111Element.classList.remove("red");
-            textbox222222Element.classList.remove("red");
-            textbox111111Element.classList.remove("green");
-            textbox222222Element.classList.remove("green");
-            textbox111111Element.classList.add("white");
-            textbox222222Element.classList.add("white");
-            }
-        
-            if (textbox111111 == ""){
-        textbox111111Element.classList.remove("red");
-            textbox222222Element.classList.remove("red");
-            textbox111111Element.classList.remove("green");
-            textbox222222Element.classList.remove("green");
-            textbox111111Element.classList.add("white");
-            textbox222222Element.classList.add("white");
-            }
-            if (event.key === "F8" ) {// 3-8-2024 F8 hotkey to compare textbox
-    event.preventDefault();
-    compareTextBoxes6()
-   
-  }
-    }
-    
-    function check7() {
-        var textbox1111111 = document.getElementById("Textbox 7").value;
-        var textbox2222222 = document.getElementById("Textbox 17").value;
-        var textbox1111111Element = document.getElementById("Textbox 7");
-        var textbox2222222Element = document.getElementById("Textbox 17");
-        
-        if (textbox1111111 == textbox2222222) {
-            textbox1111111Element.classList.remove("red");
-            textbox2222222Element.classList.remove("red");
-            textbox1111111Element.classList.add("green");
-            textbox2222222Element.classList.add("green");
-        } else {
-            textbox1111111Element.classList.remove("green");
-            textbox2222222Element.classList.remove("green");
-            textbox1111111Element.classList.add("red");
-            textbox2222222Element.classList.add("red");
-        }
-        if (textbox2222222 == ""){
-        textbox1111111Element.classList.remove("red");
-            textbox2222222Element.classList.remove("red");
-            textbox1111111Element.classList.remove("green");
-            textbox2222222Element.classList.remove("green");
-            textbox1111111Element.classList.add("white");
-            textbox2222222Element.classList.add("white");
-            }
-        
-            if (textbox1111111 == ""){
-        textbox1111111Element.classList.remove("red");
-            textbox2222222Element.classList.remove("red");
-            textbox1111111Element.classList.remove("green");
-            textbox2222222Element.classList.remove("green");
-            textbox1111111Element.classList.add("white");
-            textbox2222222Element.classList.add("white");
-            }
-            if (event.key === "F8" ) {// 3-8-2024 F8 hotkey to compare textbox
-    event.preventDefault();
-    compareTextBoxes7()
-   
-  }
-    }
-    
-    function check8() {
-        var textbox11111111 = document.getElementById("Textbox 8").value;
-        var textbox22222222 = document.getElementById("Textbox 18").value;
-        var textbox11111111Element = document.getElementById("Textbox 8");
-        var textbox22222222Element = document.getElementById("Textbox 18");
-        
-        if (textbox11111111 == textbox22222222) {
-            textbox11111111Element.classList.remove("red");
-            textbox22222222Element.classList.remove("red");
-            textbox11111111Element.classList.add("green");
-            textbox22222222Element.classList.add("green");
-        } else {
-            textbox11111111Element.classList.remove("green");
-            textbox22222222Element.classList.remove("green");
-            textbox11111111Element.classList.add("red");
-            textbox22222222Element.classList.add("red");
-        }
-        if (textbox22222222 == ""){
-        textbox11111111Element.classList.remove("red");
-            textbox22222222Element.classList.remove("red");
-            textbox11111111Element.classList.remove("green");
-            textbox22222222Element.classList.remove("green");
-            textbox11111111Element.classList.add("white");
-            textbox22222222Element.classList.add("white");
-            }
-        
-            if (textbox11111111 == ""){
-        textbox11111111Element.classList.remove("red");
-            textbox22222222Element.classList.remove("red");
-            textbox11111111Element.classList.remove("green");
-            textbox22222222Element.classList.remove("green");
-            textbox11111111Element.classList.add("white");
-            textbox22222222Element.classList.add("white");
-            }
-            if (event.key === "F8" ) {// 3-8-2024 F8 hotkey to compare textbox
-    event.preventDefault();
-    compareTextBoxes8()
-   
-  }
-    }
-    
-    function check9() {
-        var textbox111111111 = document.getElementById("Textbox 9").value;
-        var textbox222222222 = document.getElementById("Textbox 19").value;
-        var textbox111111111Element = document.getElementById("Textbox 9");
-        var textbox222222222Element = document.getElementById("Textbox 19");
-        
-        if (textbox111111111 == textbox222222222) {
-            textbox111111111Element.classList.remove("red");
-            textbox222222222Element.classList.remove("red");
-            textbox111111111Element.classList.add("green");
-            textbox222222222Element.classList.add("green");
-        } else {
-            textbox111111111Element.classList.remove("green");
-            textbox222222222Element.classList.remove("green");
-            textbox111111111Element.classList.add("red");
-            textbox222222222Element.classList.add("red");
-        }
-        if (textbox222222222 == ""){
-        textbox111111111Element.classList.remove("red");
-            textbox222222222Element.classList.remove("red");
-            textbox111111111Element.classList.remove("green");
-            textbox222222222Element.classList.remove("green");
-            textbox111111111Element.classList.add("white");
-            textbox222222222Element.classList.add("white");
-            }
-        
-            if (textbox111111111 == ""){
-        textbox111111111Element.classList.remove("red");
-            textbox222222222Element.classList.remove("red");
-            textbox111111111Element.classList.remove("green");
-            textbox222222222Element.classList.remove("green");
-            textbox111111111Element.classList.add("white");
-            textbox222222222Element.classList.add("white");
-            }
-            if (event.key === "F8" ) {// 3-8-2024 F8 hotkey to compare textbox
-    event.preventDefault();
-    compareTextBoxes9()
-   
-  }
-    }
-    
-    
-    
-    function check10() {
-        var textbox1111111111 = document.getElementById("Textbox 10").value;
-        var textbox2222222222 = document.getElementById("Textbox 20").value;
-        var textbox1111111111Element = document.getElementById("Textbox 10");
-        var textbox2222222222Element = document.getElementById("Textbox 20");
-        
-        if (textbox1111111111 == textbox2222222222) {
-            textbox1111111111Element.classList.remove("red");
-            textbox2222222222Element.classList.remove("red");
-            textbox1111111111Element.classList.add("green");
-            textbox2222222222Element.classList.add("green");
-        } else {
-            textbox1111111111Element.classList.remove("green");
-            textbox2222222222Element.classList.remove("green");
-            textbox1111111111Element.classList.add("red");
-            textbox2222222222Element.classList.add("red");
-        }
-        if (textbox2222222222 == ""){
-        textbox1111111111Element.classList.remove("red");
-            textbox2222222222Element.classList.remove("red");
-            textbox1111111111Element.classList.remove("green");
-            textbox2222222222Element.classList.remove("green");
-            textbox1111111111Element.classList.add("white");
-            textbox2222222222Element.classList.add("white");
-            }
-        
-            if (textbox1111111111 == ""){
-        textbox1111111111Element.classList.remove("red");
-            textbox2222222222Element.classList.remove("red");
-            textbox1111111111Element.classList.remove("green");
-            textbox2222222222Element.classList.remove("green");
-            textbox1111111111Element.classList.add("white");
-            textbox2222222222Element.classList.add("white");
-            }
-            if (event.key === "F8" ) {// 3-8-2024 F8 hotkey to compare textbox
-    event.preventDefault();
-    compareTextBoxes10()
-   
-  }
-    }
-
-//set focus to textbox and copy previous textbox
-function moveToNextTextbox(event, nextIndex) {
-  if (event.key === 'Enter') { // Check if Enter key is pressed
-    event.preventDefault(); // Prevent default Enter behavior (form submission)
-    var nextTextbox = document.getElementById('Textbox ' + nextIndex);
-    if (nextTextbox) {
-      nextTextbox.focus(); // Focus on the next textbox
-    }
-  }
-  if (event.key === 'CapsLock') { // Check if Control key is pressed
-    event.preventDefault(); // Prevent default Control behavior (form submission)
-    //console.log('control pressed')
-    console.log(nextIndex)
-    //console.log(document.getElementById('Textbox ' + (nextIndex  + 18)).value)
-    //var nextTextbox = document.getElementById('Textbox ' + nextIndex - 1 );
-   
-    if (nextIndex > 2 && nextIndex  !== 12) {
-      document.getElementById('Textbox '+ (nextIndex - 1 )).value = document.getElementById('Textbox ' + (nextIndex  - 2) ).value
-      document.getElementById('Textbox '+ nextIndex).focus()
-              
-    } else if (nextIndex = 1) {
-      document.getElementById('Textbox ' + (nextIndex  + 19)).value = document.getElementById('Textbox ' + (nextIndex  + 18) ).value
-       }
-   
-  }
-              check1();
-              check2();
-              check3();
-              check4();
-              check5();
-              check6();
-              check7();
-              check8();
-              check9();
-              check10();
-}
-
-function moveTo(event) {
-  if (event.key === 'Enter') { // Check if Enter key is pressed
-    event.preventDefault(); // Prevent default Enter behavior (form submission)
-  
-    var nextTextbox = document.getElementById('Textbox 14');
-     // send joinedResult to textbox13
-    document.getElementById('Textbox 13').value = document.getElementById('joinedResult').value
-     // send joinedResultsss to textbox3
-    document.getElementById('Textbox 3').value = document.getElementById('joinedResultsss').value
-    check3(); //check if textbox3 is equal to textbox3
-  
-      nextTextbox.focus(); // Focus on the next textbox 14
- 
-  }
-}
 
 
 
 
-// ***listener F6 to clear textbox
-document.addEventListener('keydown', function(event) {
-            // Check if F6 is pressed
-            if (event.key === 'F6') { // Key code for F6 is 117
-                event.preventDefault(); // Prevent default behavior of the key combination
-                clearTextboxes(); // Call the function to clear textboxes
-                clearListBox(); // clear listbox
-                // reloadPage(); //reloadPage
-                 document.getElementById('x1').innerHTML = "";
-            document.getElementById('x2').innerHTML = "";
 
-            }
-        });
-        
-// ***listener F11 to setfocus textInput
-document.addEventListener('keydown', function(event) {
-  if (event.key === 'F11') {
-    event.preventDefault();
-    // F11 key was pressed
-    
-    document.getElementById("textInput").focus();
-     document.getElementById("textInput").value = document.getElementById("Textbox 3").value;
-     splitText();
-     res1();
-     document.getElementById("Textbox 4").focus();
-     
-  }
-});      
-        
-  // ***listener F12 to search input
-document.addEventListener('keydown', function(event) {
-  if (event.key === 'F12') {
-    event.preventDefault();
-  
-    
-    
-    // paste from textbox3 into input
-     document.getElementById("textInput").focus();
-     //do not copy to textinput if Textbox 3 = null
-    if (document.getElementById("Textbox 3").value !== '') {document.getElementById("textInput").value = document.getElementById("Textbox 3").value;
-     }
-     splitText();
-     res1();
-     
-    // F11 key was pressed
-    document.getElementById("searchInput").focus();
-  }
-});        
-
- function clearTextboxes() {
-        var textboxes = document.querySelectorAll('input[type="text"]');
-        textboxes.forEach(function(textbox) {
-            textbox.value = '';
-            // textbox.style.backgroundColor = 'white'; // Set background color to white
-        });
-clearListBox() 
-document.getElementById("Textbox 1").focus(); // Set focus back to textbox1
-textboxcolorreset()
-    }
-// reset color
-function textboxcolorreset(){
- for (var i = 1; i <= 20; i++) {
-document.getElementById('Textbox ' + i).classList.remove("red");
-            document.getElementById('Textbox ' + i).classList.remove("green");
-           
-           document.getElementById('Textbox ' + i).classList.add("white");
-                               }
-
-
-            document.getElementById("joinedResult").classList.remove("red");
-            document.getElementById("joinedResult").classList.remove("green");
-           
-            document.getElementById("joinedResult").classList.add("white");
-
-
-            document.getElementById("joinedResultsss").classList.remove("red");
-            document.getElementById("joinedResultsss").classList.remove("green");
-           
-            document.getElementById("joinedResultsss").classList.add("white");
-                      
- }
-
-
-//F3 to setfocus textbox 11
-document.addEventListener('keydown', function(event) {
-            // Check if F3 pressed
-            if (event.keyCode === 114) { // Key code for F3 is 104
-                event.preventDefault(); // Prevent default behavior of the key combination
-                document.getElementById("Textbox 11").focus();
-            }
-        });
-
-// clear both list box
-function clearListBox() {
-    var listbox1 = document.getElementById("resultsList");
-    var listbox2 = document.getElementById("searchResults");
-
-
-    listbox1.innerHTML = ''
-    listbox2.innerHTML = ''
-    }
-
-//highlight differences in textbox 4 and 14
-function compareInputs() {
-            const input1 = document.getElementById('Textbox 4').value;
-            const input2 = document.getElementById('Textbox 14').value;
-            const maxLength = Math.max(input1.length, input2.length);
-            let text1 = '';
-            let text2 = '';
-
-            for (let i = 0; i < maxLength; i++) {
-                const char1 = input1.charAt(i) || '';
-                const char2 = input2.charAt(i) || '';
-
-                if (char1 !== char2) {
-                    text1 += `<span class="highlight">${char1}</span>`;
-                    text2 += `<span class="highlight">${char2}</span>`;
-                } else {
-                    text1 += char1;
-                    text2 += char2;
-                }
-            }
-
-            document.getElementById('x1').innerHTML = text1;
-            document.getElementById('x2').innerHTML = text2;
-        }
-
-
-// 3-7-2024 ***set focus Textbox 11 on recall (R1 and R2) sava data
-// 3-7-2024 ***set focus Textbox 14 afer search ndc -->enter -->item 1 selected --> called check() function --> if correct --> Textbox 14 set focus
-// 3-8-2024 ***Change compare textbox hotkey to F8
-// 3-8-2024 ***Change Clear textbox to Escape key
-// 3-16-2024 ***file search empty then search online text file 
-// 3-16-2024 ***hightlight difference textbo4 and 14
 </script>
 
 </body>
