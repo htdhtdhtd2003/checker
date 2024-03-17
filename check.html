@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Check Ver 31</title>
+<title>check github with hightlight</title>
 </head>
 <style>
 #selectedItem {
@@ -30,12 +30,15 @@
     .red {
         background-color: lightcoral;
     }
+     .highlight {
+            background-color: #B4D5FF;
+        }
 </style>
 <body onload="focustextbox1()">
  
 <div class="container">
   <div id="myDiv"   class="column">
-   
+       <p id="x1"></p>
     <!-- Repeat for each column -->
     <input type="text" id="Textbox 1" oninput="toUpperCase(this)" tabindex="1" ondblclick="compareTextBoxes1()" onkeydown="moveToNextTextbox(event, 2)"  onkeyup='check1();'>
     <input type="text" id="Textbox 2" oninput="toUpperCase(this)" tabindex="2" ondblclick="compareTextBoxes2()" onkeydown="moveToNextTextbox(event, 3)" onkeyup='check2();'>
@@ -64,7 +67,7 @@
   </div>
 
   <div id="myDiv1" class="column">
-    
+     <p id="x2"></p>
     <!-- Add textboxes similar to Column 1 -->
 <input type="text" id="Textbox 11" oninput="toUpperCase(this)" tabindex="11" ondblclick="compareTextBoxes1()" onkeydown="moveToNextTextbox(event, 12)" onkeyup='check1();'>
     <input type="text" id="Textbox 12" oninput="toUpperCase(this)" tabindex="12" ondblclick="compareTextBoxes2()" onkeydown="moveToNextTextbox(event, 13)" onkeyup='check2();'>
@@ -14095,6 +14098,14 @@ const result11 = document.getElementById('box1').value;
 function toUpperCase(element) {
   // Convert the input value to uppercase
   element.value = element.value.toUpperCase();
+var textbox4 = document.getElementById("Textbox 4").value;
+
+        var textbox14 = document.getElementById("Textbox 14").value;
+          console.log(textbox4)
+  console.log(textbox14)
+        if (textbox4 !== "" && textbox14 !== "") {
+  compareInputs()
+            }
 }
 
 
@@ -14231,10 +14242,13 @@ function toUpperCase(element) {
         var textbox2222Element = document.getElementById("Textbox 14");
         
         if (textbox1111 == textbox2222) {
+             document.getElementById('x1').innerHTML = "";
+            document.getElementById('x2').innerHTML = "";
             textbox1111Element.classList.remove("red");
             textbox2222Element.classList.remove("red");
             textbox1111Element.classList.add("green");
             textbox2222Element.classList.add("green");
+            
         } else {
             textbox1111Element.classList.remove("green");
             textbox2222Element.classList.remove("green");
@@ -14583,6 +14597,8 @@ document.addEventListener('keydown', function(event) {
                 clearTextboxes(); // Call the function to clear textboxes
                 clearListBox(); // clear listbox
                 // reloadPage(); //reloadPage
+                 document.getElementById('x1').innerHTML = "";
+            document.getElementById('x2').innerHTML = "";
 
             }
         });
@@ -14674,11 +14690,39 @@ function clearListBox() {
     listbox1.innerHTML = ''
     listbox2.innerHTML = ''
     }
+
+//highlight differences in textbox 4 and 14
+function compareInputs() {
+            const input1 = document.getElementById('Textbox 4').value;
+            const input2 = document.getElementById('Textbox 14').value;
+            const maxLength = Math.max(input1.length, input2.length);
+            let text1 = '';
+            let text2 = '';
+
+            for (let i = 0; i < maxLength; i++) {
+                const char1 = input1.charAt(i) || '';
+                const char2 = input2.charAt(i) || '';
+
+                if (char1 !== char2) {
+                    text1 += `<span class="highlight">${char1}</span>`;
+                    text2 += `<span class="highlight">${char2}</span>`;
+                } else {
+                    text1 += char1;
+                    text2 += char2;
+                }
+            }
+
+            document.getElementById('x1').innerHTML = text1;
+            document.getElementById('x2').innerHTML = text2;
+        }
+
+
 // 3-7-2024 ***set focus Textbox 11 on recall (R1 and R2) sava data
 // 3-7-2024 ***set focus Textbox 14 afer search ndc -->enter -->item 1 selected --> called check() function --> if correct --> Textbox 14 set focus
 // 3-8-2024 ***Change compare textbox hotkey to F8
 // 3-8-2024 ***Change Clear textbox to Escape key
 // 3-16-2024 ***file search empty then search online text file 
+// 3-16-2024 ***hightlight difference textbo4 and 14
 </script>
 
 </body>
