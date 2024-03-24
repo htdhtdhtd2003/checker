@@ -1702,29 +1702,69 @@ function clearListBox() {
     listbox2.innerHTML = ''
     }
 
+function longestCommonSubsequence(input1, input2) {
+            const m = input1.length;
+            const n = input2.length;
+            const dp = Array.from(Array(m + 1), () => Array(n + 1).fill(0));
+
+            for (let i = 1; i <= m; i++) {
+                for (let j = 1; j <= n; j++) {
+                    if (input1[i - 1] === input2[j - 1]) {
+                        dp[i][j] = dp[i - 1][j - 1] + 1;
+                    } else {
+                        dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+                    }
+                }
+            }
+
+            let i = m, j = n;
+            const lcs = [];
+            while (i > 0 && j > 0) {
+                if (input1[i - 1] === input2[j - 1]) {
+                    lcs.unshift(input1[i - 1]);
+                    i--;
+                    j--;
+                } else if (dp[i - 1][j] > dp[i][j - 1]) {
+                    i--;
+                } else {
+                    j--;
+                }
+            }
+
+            return lcs.join('');
+        }
+
 function compareInputs() {
    
             const input1 = document.getElementById('Textbox ' + a).value;
             const input2 = document.getElementById('Textbox ' + b).value;
-            const maxLength = Math.max(input1.length, input2.length);
-            let text1 = '';
-            let text2 = '';
+             const lcs = longestCommonSubsequence(input1, input2);
+            let result1 = '';
+            let result2 = '';
 
-            for (let i = 0; i < maxLength; i++) {
-                const char1 = input1.charAt(i) || '';
-                const char2 = input2.charAt(i) || '';
+            let i = 0, j = 0, k = 0;
 
-                if (char1 !== char2) {
-                    text1 += `<span class="highlight">${char1}</span>`;
-                    text2 += `<span class="highlight">${char2}</span>`;
+            while (i < input1.length || j < input2.length || k < lcs.length) {
+                if (input1[i] === lcs[k] && input2[j] === lcs[k]) {
+                    result1 += input1[i] || '';
+                    result2 += input2[j] || '';
+                    i++;
+                    j++;
+                    k++;
                 } else {
-                    text1 += char1;
-                    text2 += char2;
+                    if (input1[i] !== lcs[k]) {
+                        result1 += input1[i] ? `<span class="highlight">${input1[i]}</span>` : '';
+                        i++;
+                    }
+                    if (input2[j] !== lcs[k]) {
+                        result2 += input2[j] ? `<span class="highlight">${input2[j]}</span>` : '';
+                        j++;
+                    }
                 }
             }
 
-            document.getElementById('x1').innerHTML = text1;
-            document.getElementById('x2').innerHTML = text2;
+            document.getElementById('x1').innerHTML = result1;
+            document.getElementById('x2').innerHTML = result2;
         }
 
 // Function to suppress function keys
