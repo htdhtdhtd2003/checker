@@ -156,6 +156,7 @@
 <button id="loadGithubBtn">Load from GitHub</button>
 
 
+
 </div>
 
 </div>
@@ -164,12 +165,14 @@
 
 <script>
 
-	document.getElementById("loadGithubBtn").addEventListener("click", loadFromGitHub);
+	// Auto-load on page start
+window.addEventListener("load", loadFromGitHub);
+
+// Or call manually with a button:
+// document.getElementById("loadGithubBtn").addEventListener("click", loadFromGitHub);
 
 function loadFromGitHub() {
-    // Raw GitHub file URL (use "Raw" link, not the GitHub webpage)
     const githubRawUrl = "https://raw.githubusercontent.com/htdhtdhtd2003/checker/c7037210428566ab26160d0914dc35dccb0c825e/ndc.txt";
-
 
     fetch(githubRawUrl)
         .then(response => {
@@ -179,29 +182,33 @@ function loadFromGitHub() {
             return response.text();
         })
         .then(text => {
-            // Simulate what happens when you load a local file
-            // Break into lines and load them into searchResults
-            const lines = text.split("\n");
-            const searchResults = document.getElementById("searchResults");
-            searchResults.innerHTML = "";
-
-            lines.forEach(line => {
-                const option = document.createElement("option");
-                option.text = line;
-                searchResults.add(option);
-            });
-
-            // Optionally: auto-select the first line
-            if (searchResults.options.length > 0) {
-                searchResults.selectedIndex = 0;
-                displaySelectedItem();
-            }
+            processText(text); // feed into your existing parsing logic
         })
         .catch(error => {
-            console.error("Error loading file:", error);
+            console.error("Error loading from GitHub:", error);
             alert("Could not load file from GitHub.");
         });
 }
+
+// Reuse your same processing/search function
+function processText(text) {
+    const lines = text.split("\n");
+    const searchResults = document.getElementById("searchResults");
+    searchResults.innerHTML = "";
+
+    lines.forEach(line => {
+        const option = document.createElement("option");
+        option.text = line;
+        searchResults.add(option);
+    });
+
+    if (searchResults.options.length > 0) {
+        searchResults.selectedIndex = 0;
+        // Optional: trigger your existing handler
+        displaySelectedItem();
+    }
+}
+
 
 
 function searchText() {
@@ -17332,6 +17339,7 @@ document.addEventListener('keydown', suppressFunctionKeys);
 
 </body>
 </html>
+
 
 
 
