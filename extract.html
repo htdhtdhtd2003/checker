@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Extract Medication Info on GitHub</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    textarea, input[type="password"] { width: 100%; max-width: 800px; margin-bottom: 10px; }
+    textarea { font-family: monospace; }
+    #output { margin-top: 15px; background: #f4f4f4; padding: 10px; white-space: pre-wrap; }
+    button { padding: 8px 16px; margin-top: 10px; }
+
+    .line-entry {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 4px 8px;
+      margin-bottom: 4px;
+    }
+
+    .line-entry button {
+      background: #e74c3c;
+      color: #fff;
+      border: none;
+      padding: 4px 8px;
+      cursor: pointer;
+    }
+
+    .line-entry button:hover {
+      background: #c0392b;
+    }
+  </style>
+</head>
+<body>
+  <h1>Input New Data & Update GitHub</h1>
+
+  <h3>GitHub Token</h3>
+  <input type="password" id="tokenInput" placeholder="Enter your GitHub token..." />
+
+  <h3>Enter New Data</h3>
+  <textarea id="newDataInput" rows="10" placeholder="Paste new medication data here..."></textarea><br>
+  <button onclick="fetchAndUpdate()">Combine, Extract & Update GitHub</button>
+<button onclick="downloadFile()">⬇️ Download Updated File</button>
+<button onclick="downloadFromGitHub()">⬇️ Download ndc.txt</button>
+
+  <h3>Extracted Output</h3>
+  <div id="output"></div>
+
+  <script>
+    const username = 'htdhtdhtd2003';
+    const repo = 'checker';
+    const filePath = 'ndc.txt';
+    const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/${filePath}`;
+    let fileSha = '';
+    let extractedSet = new Set();
+
+    function getToken() {
+      return document.getElementById('tokenInput').value.trim();
+    }
+
+    async function fetchFileContent() {
+      const token = getToken();
+      try {
+        const res = await fetch(apiUrl, {
+          headers: { Authorization: `token ${token}` }
+        });
+        const data = await res.json();
+        if (data.content && data.sha) {
+          fileSha = data.sha;
+          return atob(data.content);
+        } else {
+          alert("Error fetching online file.");
+          return "";
+        }
+      } catch (err) {
+        alert("Error fetching file: " + err.message);
+        return "";
+      }
+    }
+
+    function extractMedNdc(text) {
+      const lines = text.split('\n');
+      const extracted = new Set();
+      lines.forEach(line => {
+        const match = line.match(/(.+?)\b(\d{4,5}-\d{3,4}-\d{1,2})/);
+        if (match) {
+          const name = match[1].trim().replace(/"/g, '');
+          const ndc = match[2];
+          extracted.add(`${name} ${ndc}`);
+        }
+      });
+      return extracted;
+    }
+
+    async function saveToGitHub(content) {
+      const token = getToken();
+      try {
+        const res = await fetch(apiUrl, {
+          method: 'PUT',
+          headers: {
+            Authorization: `token ${token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: 'Updated ndc.txt after line removal',
+            content: btoa(content),
+            sha: fileSha
+          })
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          fileSha = data.content.sha;
+          console.log('✅ GitHub updated after removal.');
+        } else {
+          const err = await res.json();
+          alert('❌ Failed to update file: ' + err.message);
+        }
+      } catch (error) {
+        alert('❌ Error updating file: ' + error.message);
+      }
+    }
+
+    function displayExtractedLines() {
+      const outputDiv = document.getElementById('output');
+      outputDiv.innerHTML = "";
+
+      [...extractedSet].forEach(line => {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'line-entry';
+
+        const span = document.createElement('span');
+        span.textContent = line;
+
+        const btn = document.createElement('button');
+        btn.textContent = '❌ Remove';
+        btn.onclick = async () => {
+          if (confirm(`Remove this line?\n\n${line}`)) {
+            extractedSet.delete(line);
+            displayExtractedLines(); // Refresh display
+            const finalContent = [...extractedSet].join("\n");
+            await saveToGitHub(finalContent); // Immediately update GitHub
+          }
+        };
+
+        wrapper.appendChild(span);
+        wrapper.appendChild(btn);
+        outputDiv.appendChild(wrapper);
+      });
+    }
+
+    async function fetchAndUpdate() {
+      const token = getToken();
+      if (!token) {
+        alert("❗ GitHub token is required.");
+        return;
+      }
+
+      const newInput = document.getElementById('newDataInput').value.trim();
+      if (!newInput) {
+        alert("❗ Please enter new data.");
+        return;
+      }
+
+      if (!confirm("Are you sure you want to fetch and update ndc.txt from GitHub?")) return;
+
+      const onlineContent = await fetchFileContent();
+      const combinedContent = onlineContent + "\n" + newInput;
+
+      extractedSet = extractMedNdc(combinedContent);
+      displayExtractedLines();
+
+      if (extractedSet.size === 0) {
+        alert("⚠️ No valid medication + NDC entries found.");
+        return;
+      }
+
+      if (confirm("Do you want to save the extracted content to GitHub now?")) {
+        const finalContent = [...extractedSet].join("\n");
+        await saveToGitHub(finalContent);
+      }
+    }
+    function downloadFile() {
+  if (extractedSet.size === 0) {
+    alert("⚠️ No data to download.");
+    return;
+  }
+
+  const finalContent = [...extractedSet].join("\n");
+  const blob = new Blob([finalContent], { type: "text/plain" });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "ndc.txt";  // File name when saved
+  document.body.appendChild(a);
+  a.click();
+
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+async function downloadFromGitHub() {
+  const token = getToken();
+  if (!token) {
+    alert("❗ GitHub token is required.");
+    return;
+  }
+
+  const content = await fetchFileContent();
+  if (!content) {
+    alert("❌ Failed to fetch file content.");
+    return;
+  }
+
+  const blob = new Blob([content], { type: "text/plain" });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "ndc.txt"; // filename for download
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+  </script>
+</body>
+</html>
