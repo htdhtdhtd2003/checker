@@ -151,7 +151,7 @@
  <div id="myDiv6" class="column">
 
 
-<input type="file" id="fileInput">
+
 
 
 </div>
@@ -161,28 +161,37 @@
 
 
 <script>
+const githubFileURL = "https://raw.githubusercontent.com/htdhtdhtd2003/checker/main/ndc.txt";
+let githubData = [];
 
-function searchText() {
-   var file = document.getElementById('fileInput').files[0];
-    var searchTerm = document.getElementById('searchTerm').value.toLowerCase();
-    var searchResults = document.getElementById('searchResults');
-    searchResults.innerHTML = ''; // Clear previous results
-    
-    var reader = new FileReader();
-    reader.onload = function(event) {
-        var text = event.target.result;
-        var lines = text.split('\n');
-        lines.forEach(function(line, index) {
-            if (line.toLowerCase().includes(searchTerm)) {
-                var option = document.createElement('option');                          
-                option.text = line;
-                searchResults.add(option);
-            }
-        });
-    };
-    
-    reader.readAsText(file);
+async function loadGitHubFile() {
+    try {
+        const response = await fetch(githubFileURL);
+        const text = await response.text();
+        // Split into lines, trim whitespace, and filter out empty lines
+        githubData = text.split('\n').map(line => line.trim()).filter(line => line.length > 0);
+        console.log("GitHub file loaded:", githubData.length, "lines");
+    } catch (error) {
+        console.error("Error loading GitHub file:", error);
+    }
 }
+
+
+	
+function searchText() {
+    const searchTerm = document.getElementById('searchTerm').value.toLowerCase();
+    const searchResults = document.getElementById('searchResults');
+    searchResults.innerHTML = '';
+
+    githubData.forEach(function(line) {
+        if (line.toLowerCase().includes(searchTerm)) {
+            const option = document.createElement('option');
+            option.text = line;
+            searchResults.add(option);
+        }
+    });
+}
+
 
 
 function displaySelectedItem() {
@@ -14810,9 +14819,12 @@ document.addEventListener('keydown', suppressFunctionKeys);
   ];
 
 
+// Load GitHub file as soon as the page opens
+loadGitHubFile();
 
 
 </script>
 
 </body>
 </html>
+
