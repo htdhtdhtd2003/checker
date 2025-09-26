@@ -179,18 +179,26 @@ async function loadGitHubFile() {
 
 	
 function searchText() {
-    const searchTerm = document.getElementById('searchTerm').value.toLowerCase();
+    const searchTerm = document.getElementById('searchTerm').value.toLowerCase().trim();
     const searchResults = document.getElementById('searchResults');
-    searchResults.innerHTML = '';
+    searchResults.innerHTML = ''; // clear previous results
 
-    githubData.forEach(function(line) {
+    // Only search if at least 7 characters are entered
+    if (searchTerm.length < 7) return;
+
+    const fragment = document.createDocumentFragment();
+
+    githubData.forEach(line => {
         if (line.toLowerCase().includes(searchTerm)) {
             const option = document.createElement('option');
             option.text = line;
-            searchResults.add(option);
+            fragment.appendChild(option);
         }
     });
+
+    searchResults.appendChild(fragment);
 }
+
 
 
 
@@ -14827,4 +14835,5 @@ loadGitHubFile();
 
 </body>
 </html>
+
 
