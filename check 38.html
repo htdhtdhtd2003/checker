@@ -771,20 +771,22 @@ const result99 = document.getElementById('box10').value;
 }
 // **********************************
   function search() {
-    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
     const resultsList = document.getElementById('resultsList');
-    resultsList.innerHTML = '';
+    resultsList.innerHTML = ''; // clear previous results
+
+    // Only search if at least 7 characters are entered
+    if (searchTerm.length < 7) return;
 
     for (let item of database) {
-      if (item.toLowerCase().includes(searchTerm)) {
-        const option = document.createElement('option');
-        option.text = item;
-        resultsList.add(option);
-      }
+        if (item.toLowerCase().includes(searchTerm)) {
+            const option = document.createElement('option');
+            option.text = item;
+            resultsList.add(option);
+        }
     }
-    
-  }
-  
+}
+
   // **********************************
        document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') {                   // 3-8-2024 change clear hotkey to Escape button
@@ -14835,5 +14837,6 @@ loadGitHubFile();
 
 </body>
 </html>
+
 
 
