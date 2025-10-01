@@ -141,9 +141,10 @@
 
 
 <input type="text" id="searchTerm" oninput="searchText()">
+<button onclick="refreshGitHubFile()">🔄 Refresh</button>
 <br>
 
-<select id="searchResults" size="5" oninput="displaySelectedItem()" </select>
+<select id="searchResults" size="5" oninput="displaySelectedItem()"></select>
 <input type="text" id="selectedItem" readonly>
 
 </div>
@@ -151,20 +152,23 @@
  <div id="myDiv6" class="column">
 
 
-<button onclick="refreshData()">Reload File</button>
 
 
 
 </div>
 
 </div>
+
 
 
 
 <script>
-  
-
-
+	async function refreshGitHubFile() {
+    await loadGitHubFile();
+    // ✅ Automatically re-run search with current term
+    searchText();
+    alert("✅ Data refreshed and search updated!");
+}
 
 const githubFileURL = "https://raw.githubusercontent.com/htdhtdhtd2003/checker/main/ndc.txt";
 let githubData = [];
@@ -181,10 +185,7 @@ async function loadGitHubFile() {
     }
 }
 
-async function refreshData() {
-    githubData = await loadGitHubFile();
-    console.log("Reloaded file:", githubData.length, "lines");
-}
+
 	
 function searchText() {
     const searchTerm = document.getElementById('searchTerm').value.toLowerCase().trim();
