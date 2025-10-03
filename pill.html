@@ -1,0 +1,639 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Pill Counter — OpenCV.js + Real-time Camera</title>
+<style>
+  :root{--bg:#f6f7fb;--card:#fff;--muted:#666;--accent:#0b76ff;}
+  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial; background:var(--bg); color:#111; margin:12px;}
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;}
+  h1{font-size:18px;margin:0;}
+  .controls{display:flex;gap:8px;flex-wrap:wrap;}
+  button{background:var(--card);border:1px solid #d6dbe8;padding:8px 10px;border-radius:8px;cursor:pointer;}
+  .card{background:var(--card);padding:12px;border-radius:10px;border:1px solid #eaedf5;box-shadow:0 2px 8px rgba(20,20,40,0.03);}
+  .row{display:flex;gap:12px;flex-wrap:wrap;}
+  .pane{flex:1 1 420px;min-width:320px;}
+  canvas{display:block;max-width:100%;border-radius:8px;background:#222;}
+  video{display:none;} /* hidden video used as camera source */
+  .small{font-size:13px;color:var(--muted);}
+  #status{margin-top:8px;color:var(--muted);font-size:13px;}
+  .legend{display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap;}
+  .dot{width:14px;height:14px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,0.08);}
+  .dot.auto{background:#0b6;}
+  .dot.flag{background:#f66;}
+  .dot.unmatched{background:#ccc;}
+  .toolbar{display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap;}
+  .info{margin-top:8px;color:#a22;font-weight:600;}
+  .controls input[type=file]{display:none;}
+  .toggle {display:inline-flex; gap:6px; align-items:center; padding:6px 8px; border-radius:8px; border:1px solid #e6ebf5; background:#fff;}
+  .live-indicator {width:10px; height:10px; border-radius:50%; background:#d33; box-shadow:0 0 6px rgba(211,50,50,0.6); display:inline-block; margin-right:6px;}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>Pill Counter — OpenCV.js + Real-time Camera</h1>
+    <div class="small">Use live camera preview to position the tray, then Capture Snapshot to freeze an image for matching. Manual override & export still available.</div>
+  </div>
+  <div class="controls">
+    <button id="btnLoadA">Upload / Camera A</button>
+    <input id="fileA" type="file" accept="image/*" capture="environment">
+    <button id="btnLoadB">Upload / Camera B</button>
+    <input id="fileB" type="file" accept="image/*" capture="environment">
+    <button id="btnDetect">Detect & Auto-match</button>
+    <button id="btnReset">Reset</button>
+    <button id="exportCSV">Export CSV</button>
+  </div>
+</header>
+
+<div class="row">
+  <div class="pane card" id="paneA">
+    <div style="display:flex; align-items:center; justify-content:space-between;">
+      <div><strong>Side A</strong> <span class="small" id="countA">0 pills</span></div>
+      <div>
+        <button id="btnStartLiveA">Start Live A</button>
+        <button id="btnStopLiveA" disabled>Stop Live</button>
+        <button id="btnCaptureA">Capture Snapshot</button>
+      </div>
+    </div>
+    <canvas id="canvasA" width="640" height="480"></canvas>
+    <div class="toolbar">
+      <button id="btnSelectA">Select (click to choose pill)</button>
+      <button id="btnClearSelection">Clear Selection</button>
+    </div>
+    <div class="legend">
+      <span class="dot auto"></span><span class="small">Auto-matched</span>
+      <span class="dot flag"></span><span class="small">Flagged different</span>
+      <span class="dot unmatched"></span><span class="small">Unmatched</span>
+    </div>
+  </div>
+
+  <div class="pane card" id="paneB">
+    <div style="display:flex; align-items:center; justify-content:space-between;">
+      <div><strong>Side B</strong> <span class="small" id="countB">0 pills</span></div>
+      <div>
+        <button id="btnStartLiveB">Start Live B</button>
+        <button id="btnStopLiveB" disabled>Stop Live</button>
+        <button id="btnCaptureB">Capture Snapshot</button>
+      </div>
+    </div>
+    <canvas id="canvasB" width="640" height="480"></canvas>
+    <div class="toolbar">
+      <button id="btnSelectB">Select (click to choose pill)</button>
+      <button id="btnMarkDifferent">Mark Different</button>
+    </div>
+    <div id="status" class="small">OpenCV not loaded yet — waiting...</div>
+    <div id="alerts" class="info" style="display:none;"></div>
+  </div>
+</div>
+
+<!-- hidden video used for live preview -->
+<video id="video" autoplay playsinline></video>
+
+<!-- load OpenCV.js -->
+<script async src="https://docs.opencv.org/4.x/opencv.js"></script>
+
+<script>
+/* Real-time enabled OpenCV.js pill counter
+   - Start Live A / Live B: opens camera stream, draws frames to the chosen canvas with live detection overlays
+   - Capture Snapshot: freezes current live frame into the canvas (stops live on that side)
+   - Detect & Auto-match: runs detection on both static canvases and matches (as before)
+   - Manual override & CSV export available
+*/
+
+// DOM
+const fileA = document.getElementById('fileA'), fileB = document.getElementById('fileB');
+const btnLoadA = document.getElementById('btnLoadA'), btnLoadB = document.getElementById('btnLoadB');
+const btnDetect = document.getElementById('btnDetect'), btnReset = document.getElementById('btnReset');
+const canvasA = document.getElementById('canvasA'), canvasB = document.getElementById('canvasB');
+let ctxA = canvasA.getContext('2d'), ctxB = canvasB.getContext('2d');
+const countA = document.getElementById('countA'), countB = document.getElementById('countB');
+const statusEl = document.getElementById('status'), alertsEl = document.getElementById('alerts');
+const btnSelectA = document.getElementById('btnSelectA'), btnSelectB = document.getElementById('btnSelectB');
+const btnClearSelection = document.getElementById('btnClearSelection'), btnMarkDifferent = document.getElementById('btnMarkDifferent');
+const exportCSVBtn = document.getElementById('exportCSV');
+
+const btnStartLiveA = document.getElementById('btnStartLiveA'), btnStopLiveA = document.getElementById('btnStopLiveA'), btnCaptureA = document.getElementById('btnCaptureA');
+const btnStartLiveB = document.getElementById('btnStartLiveB'), btnStopLiveB = document.getElementById('btnStopLiveB'), btnCaptureB = document.getElementById('btnCaptureB');
+
+const video = document.getElementById('video');
+
+btnLoadA.addEventListener('click', () => fileA.click());
+btnLoadB.addEventListener('click', () => fileB.click());
+fileA.addEventListener('change', e => loadImageToCanvas(e.target.files[0], canvasA));
+fileB.addEventListener('change', e => loadImageToCanvas(e.target.files[0], canvasB));
+btnDetect.addEventListener('click', detectAndMatch);
+btnReset.addEventListener('click', resetAll);
+btnSelectA.addEventListener('click', ()=> setSelecting('A'));
+btnSelectB.addEventListener('click', ()=> setSelecting('B'));
+btnClearSelection.addEventListener('click', clearSelections);
+btnMarkDifferent.addEventListener('click', markSelectedPairDifferent);
+exportCSVBtn.addEventListener('click', exportCSV);
+
+btnStartLiveA.addEventListener('click', ()=> startLiveFor('A'));
+btnStartLiveB.addEventListener('click', ()=> startLiveFor('B'));
+btnStopLiveA.addEventListener('click', ()=> stopLiveFor('A'));
+btnStopLiveB.addEventListener('click', ()=> stopLiveFor('B'));
+btnCaptureA.addEventListener('click', ()=> captureSnapshot('A'));
+btnCaptureB.addEventListener('click', ()=> captureSnapshot('B'));
+
+let selecting = null;
+let selectedA = null, selectedB = null;
+let sideA_blobs = [], sideB_blobs = [], matches = [];
+let nextLabel = 1;
+let cvReady = false;
+
+// live state
+let mediaStream = null;
+let liveSide = null; // 'A' or 'B' or null
+let liveRunning = false;
+let liveLoopId = null;
+const LIVE_INTERVAL_MS = 180; // process live approx every this many ms (tuneable)
+
+// utility: set status
+function setStatus(s){ statusEl.textContent = s; }
+
+// initial reset
+resetAll();
+
+// load OpenCV
+function waitForCvReady(callback){
+  if (typeof cv !== 'undefined' && cv && cv.Mat) {
+    cvReady = true; setStatus('OpenCV loaded — ready'); callback && callback();
+  } else {
+    setStatus('Loading OpenCV.js...');
+    const check = setInterval(()=> {
+      if (typeof cv !== 'undefined' && cv && cv.Mat) {
+        clearInterval(check);
+        cvReady = true; setStatus('OpenCV loaded — ready'); callback && callback();
+      }
+    }, 200);
+    setTimeout(()=> {
+      if (!cvReady) setStatus('OpenCV load timed out. Make sure network allows docs.opencv.org');
+    }, 12000);
+  }
+}
+waitForCvReady();
+
+// load image file into canvas (snapshot)
+function loadImageToCanvas(file, canvas){
+  if (!file) return;
+  const img = new Image();
+  const url = URL.createObjectURL(file);
+  img.onload = () => {
+    // resize to fit within 900px limit
+    const maxDim = 900;
+    let w = img.width, h = img.height;
+    const scale = Math.min(maxDim/w, maxDim/h, 1);
+    w = Math.round(w*scale); h = Math.round(h*scale);
+    canvas.width = w; canvas.height = h;
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0,0,w,h);
+    ctx.drawImage(img, 0, 0, w, h);
+    URL.revokeObjectURL(url);
+    // clear previous live if any on this side
+    if (liveSide && liveSide === (canvas === canvasA ? 'A' : 'B')) stopLiveFor(liveSide);
+  };
+  img.onerror = () => { alert('Could not load image'); URL.revokeObjectURL(url); };
+  img.src = url;
+}
+
+// real-time camera handling
+async function startCameraStream() {
+  if (mediaStream) return mediaStream;
+  try {
+    mediaStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false });
+    video.srcObject = mediaStream;
+    await video.play();
+    return mediaStream;
+  } catch (e) {
+    alert('Could not access camera: ' + e.message);
+    return null;
+  }
+}
+
+async function startLiveFor(side) {
+  if (!cvReady) { alert('OpenCV not ready yet.'); return; }
+  // start camera
+  const stream = await startCameraStream();
+  if (!stream) return;
+  // set live side
+  liveSide = side;
+  liveRunning = true;
+  // enable/disable buttons
+  if (side === 'A') { btnStartLiveA.disabled = true; btnStopLiveA.disabled = false; btnStartLiveB.disabled = true; btnStopLiveB.disabled = true; }
+  else { btnStartLiveB.disabled = true; btnStopLiveB.disabled = false; btnStartLiveA.disabled = true; btnStopLiveA.disabled = true; }
+
+  // begin loop
+  let lastTime = performance.now();
+  async function liveLoop(now) {
+    if (!liveRunning || liveSide !== side) { return; }
+    // throttle by LIVE_INTERVAL_MS
+    if (now - lastTime >= LIVE_INTERVAL_MS) {
+      lastTime = now;
+      // draw video frame to selected canvas (fit)
+      const targetCanvas = (side === 'A') ? canvasA : canvasB;
+      const tgtCtx = targetCanvas.getContext('2d');
+      // adapt canvas size to video size (smallest scale to maintain speed)
+      const vw = video.videoWidth || 640, vh = video.videoHeight || 480;
+      const maxDim = 900;
+      const scale = Math.min(maxDim / vw, maxDim / vh, 1);
+      const w = Math.round(vw * scale), h = Math.round(vh * scale);
+      if (targetCanvas.width !== w || targetCanvas.height !== h) {
+        targetCanvas.width = w; targetCanvas.height = h;
+      }
+      tgtCtx.drawImage(video, 0, 0, targetCanvas.width, targetCanvas.height);
+
+      // run detection on this frame (non-blocking)
+      try {
+        const mat = cv.imread(targetCanvas); // RGBA
+        const blobs = extractBlobsFromMat(mat, {minArea: 160});
+        // update the live overlay by redrawing image then drawing overlays
+        // (we already drew image via drawImage), so draw overlays directly onto canvas
+        // but first clear previous overlay by redrawing the image we just used
+        tgtCtx.drawImage(video, 0, 0, targetCanvas.width, targetCanvas.height); // ensure image is fresh
+        // draw overlays on chosen canvas
+        for (const b of blobs) {
+          drawBlobOverlayOnCanvas(tgtCtx, b, null, true); // label null for live
+        }
+        // store live blobs into sideX_blobs for quick reference only if user wants detection snapshot
+        if (side === 'A') sideA_blobs = blobs;
+        else sideB_blobs = blobs;
+        mat.delete();
+      } catch (err) {
+        console.error('Live frame processing error', err);
+      }
+    }
+    liveLoopId = requestAnimationFrame(liveLoop);
+  }
+  liveLoopId = requestAnimationFrame(liveLoop);
+}
+
+function stopLiveFor(side) {
+  if (!liveRunning) return;
+  liveRunning = false;
+  liveSide = null;
+  if (liveLoopId) { cancelAnimationFrame(liveLoopId); liveLoopId = null; }
+  if (mediaStream) {
+    // keep stream open if we might reuse it; but stop tracks to release camera
+    mediaStream.getTracks().forEach(t => t.stop());
+    mediaStream = null;
+    video.srcObject = null;
+  }
+  // enable start buttons
+  btnStartLiveA.disabled = false; btnStartLiveB.disabled = false;
+  btnStopLiveA.disabled = true; btnStopLiveB.disabled = true;
+  setStatus('Live stopped.');
+}
+
+// Capture snapshot: freeze current canvas content (if live is running it will have been drawn)
+function captureSnapshot(side) {
+  // stop live for that side but keep frame
+  if (liveSide === side) stopLiveFor(side);
+  // side blobs already updated during live; we keep them until user runs detectAndMatch
+  setStatus(`Snapshot captured for Side ${side}. Use Detect & Auto-match to match both sides.`);
+}
+
+// ---------- Existing OpenCV helpers (adapted) ----------
+
+// convert canvas to cv.Mat (RGBA)
+function matFromCanvas(canvas){ return cv.imread(canvas); }
+
+// extract blobs same as before
+function extractBlobsFromMat(srcMat, opts={minArea:200}) {
+  const out = [];
+  try {
+    let mat = new cv.Mat();
+    cv.cvtColor(srcMat, mat, cv.COLOR_RGBA2GRAY);
+    cv.GaussianBlur(mat, mat, new cv.Size(5,5), 0);
+
+    let th = new cv.Mat();
+    cv.adaptiveThreshold(mat, th, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY_INV, 31, 7);
+
+    let kernel = cv.getStructuringElement(cv.MORPH_ELLIPSE, new cv.Size(5,5));
+    cv.morphologyEx(th, th, cv.MORPH_CLOSE, kernel);
+    cv.morphologyEx(th, th, cv.MORPH_OPEN, kernel);
+
+    let contours = new cv.MatVector();
+    let hierarchy = new cv.Mat();
+    cv.findContours(th, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
+
+    for (let i=0; i<contours.size(); i++){
+      const cnt = contours.get(i);
+      const area = cv.contourArea(cnt, false);
+      if (area < opts.minArea) { cnt.delete(); continue; }
+
+      const moments = cv.moments(cnt, false);
+      const cx = moments.m10 / (moments.m00 || 1);
+      const cy = moments.m01 / (moments.m00 || 1);
+      const bbox = cv.boundingRect(cnt);
+      const perim = cv.arcLength(cnt, true);
+      const circ = perim > 0 ? (4 * Math.PI * area) / (perim * perim) : 0;
+
+      const huMat = new cv.Mat();
+      cv.HuMoments(moments, huMat);
+      const huArr = [];
+      for (let j=0;j<7;j++){
+        let v = huMat.doubleAt(j,0);
+        let val = (v === 0) ? 0 : -Math.sign(v)*Math.log10(Math.abs(v));
+        if (!isFinite(val)) val = 0;
+        huArr.push(val);
+      }
+
+      let ellipse = null;
+      try {
+        if (cnt.total() >= 5) {
+          const el = cv.fitEllipse(cnt);
+          ellipse = {center:{x: el.center.x, y: el.center.y}, size:{w: el.size.width, h: el.size.height}, angle: el.angle};
+        }
+      } catch(e){}
+
+      out.push({
+        id: out.length + 1,
+        contour: cnt,
+        area, perim, circularity: circ,
+        centroid: {x: cx, y: cy},
+        bbox,
+        hu: huArr,
+        ellipse
+      });
+      huMat.delete();
+    }
+
+    mat.delete(); th.delete(); kernel.delete(); contours.delete(); hierarchy.delete();
+  } catch (e) {
+    console.error('extractBlobsFromMat error', e);
+  }
+  return out;
+}
+
+function huDistance(a,b){
+  let s = 0;
+  for (let i=0;i<7;i++){ const d = (a[i] - b[i]); s += d*d; }
+  return Math.sqrt(s);
+}
+
+// Auto match (same as before but tuned)
+function autoMatchBlobs(aBlobs, bBlobs, opts={maxCentroidDist:80, huWeight:6}) {
+  const results = [];
+  const usedB = new Set();
+  let label = 1;
+  for (const a of aBlobs) {
+    let best = null, bestScore = Infinity;
+    for (const b of bBlobs) {
+      if (usedB.has(b.id)) continue;
+      const dx = a.centroid.x - b.centroid.x;
+      const dy = a.centroid.y - b.centroid.y;
+      const dist = Math.hypot(dx, dy);
+      if (dist > opts.maxCentroidDist) continue;
+      const huDist = huDistance(a.hu, b.hu);
+      const score = dist + opts.huWeight * huDist;
+      if (score < bestScore) { bestScore = score; best = b; }
+    }
+    if (best) {
+      usedB.add(best.id);
+      const flagged = (Math.abs(a.circularity - best.circularity) > 0.24) || (huDistance(a.hu, best.hu) > 1.6);
+      results.push({label: label++, a, b: best, flagged, forced: false});
+    } else {
+      results.push({label: label++, a, b: null, flagged: true, forced: false});
+    }
+  }
+  for (const b of bBlobs) {
+    if (!usedB.has(b.id)) results.push({label: label++, a: null, b, flagged: true, forced: false});
+  }
+  return results;
+}
+
+// draw overlay for static canvases when we have label
+function drawAnnotations() {
+  // assume underlying images are already on canvases
+  // clear overlays by redrawing image (we cannot easily re-draw original file if not kept; expect canvas has image)
+  // draw overlays for matches
+  // use ctxA/ctxB references
+  ctxA = canvasA.getContext('2d'); ctxB = canvasB.getContext('2d');
+  // redraw overlays
+  for (const m of matches) {
+    if (m.a) drawBlobOverlayOnCanvas(ctxA, m.a, m.label, m.flagged, m.forced);
+    if (m.b) drawBlobOverlayOnCanvas(ctxB, m.b, m.label, m.flagged, m.forced);
+  }
+  updateCountsAndAlerts();
+}
+
+// draw a single blob overlay; when `live` is true, label may be null and strokes are lighter
+function drawBlobOverlayOnCanvas(ctx, blob, label=null, live=false, flagged=false, forced=false) {
+  const x = blob.centroid.x, y = blob.centroid.y;
+  const w = blob.bbox.width || (blob.ellipse ? blob.ellipse.size.w : 20);
+  const h = blob.bbox.height || (blob.ellipse ? blob.ellipse.size.h : 20);
+  const stroke = flagged ? '#f66' : (forced ? '#0b6' : (live ? 'rgba(11,118,255,0.9)' : '#0b76ff'));
+  ctx.beginPath();
+  ctx.lineWidth = live ? 2 : 2.5;
+  ctx.strokeStyle = stroke;
+  if (blob.ellipse) {
+    ctx.ellipse(blob.ellipse.center.x, blob.ellipse.center.y, blob.ellipse.size.w/2 + 6, blob.ellipse.size.h/2 + 6, blob.ellipse.angle * Math.PI/180, 0, Math.PI*2);
+  } else {
+    ctx.ellipse(x, y, Math.max(w,h)/2 + 6, Math.max(w,h)/2 + 6, 0, 0, Math.PI*2);
+  }
+  ctx.stroke();
+
+  if (!live) {
+    // label
+    ctx.fillStyle = 'rgba(255,255,255,0.95)';
+    ctx.strokeStyle = 'rgba(0,0,0,0.12)';
+    ctx.lineWidth = 1;
+    const txt = label ? String(label) : '?';
+    ctx.font = '15px system-ui, Arial';
+    const tw = ctx.measureText(txt).width;
+    const pad = 6;
+    const rw = tw + pad*2, rh = 22;
+    ctx.fillRect(x - rw/2, y - rh/2, rw, rh);
+    ctx.strokeRect(x - rw/2, y - rh/2, rw, rh);
+    ctx.fillStyle = '#000';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(txt, x, y);
+
+    if (flagged && !forced) {
+      ctx.beginPath();
+      ctx.lineWidth = 3.5; ctx.strokeStyle = '#f66';
+      ctx.arc(x, y, Math.max(w,h)/2 + 14, 0, Math.PI*2); ctx.stroke();
+    }
+  } else {
+    // for live: optionally draw dot at centroid
+    ctx.beginPath();
+    ctx.fillStyle = 'rgba(255,255,255,0.9)';
+    ctx.arc(x, y, 3, 0, Math.PI*2); ctx.fill();
+  }
+}
+
+// update counts + alerts text
+function updateCountsAndAlerts(){
+  const flagged = matches.filter(m => m.flagged).length;
+  countA.textContent = `${sideA_blobs.length} pills`;
+  countB.textContent = `${sideB_blobs.length} pills`;
+  if (flagged > 0) {
+    alertsEl.style.display='block';
+    alertsEl.textContent = `Flagged pairs (shape mismatch/unmatched): ${flagged}. Click a pill on A then its match on B to force-match or use Mark Different.`;
+  } else {
+    alertsEl.style.display='none';
+    alertsEl.textContent = '';
+  }
+}
+
+// core detect & match for static canvases
+function detectAndMatch(){
+  if (!cvReady) { alert('OpenCV.js not ready yet.'); return; }
+  if (canvasA.width === 0 || canvasB.width === 0) { alert('Please upload/capture both side images.'); return; }
+  setStatus('Processing images (OpenCV)...');
+
+  try {
+    const matA = matFromCanvas(canvasA);
+    const matB = matFromCanvas(canvasB);
+    sideA_blobs = extractBlobsFromMat(matA, {minArea: 200});
+    sideB_blobs = extractBlobsFromMat(matB, {minArea: 200});
+
+    matches = autoMatchBlobs(sideA_blobs, sideB_blobs, {maxCentroidDist: Math.max(canvasA.width, canvasA.height)/8, huWeight:6});
+    nextLabel = matches.length + 1;
+
+    // attach click listeners for manual selection on static canvases
+    attachCanvasClickHandlers();
+
+    // draw overlays
+    // first redraw images (assumed present). Then overlays:
+    drawAnnotations();
+
+    matA.delete(); matB.delete();
+    setStatus('Done — detection complete.');
+  } catch (e) {
+    console.error('detectAndMatch error', e);
+    setStatus('Error during detection. See console for details.');
+  }
+}
+
+// click handlers for manual selection (static canvases)
+function attachCanvasClickHandlers(){
+  // remove previous by cloning nodes
+  canvasA.replaceWith(canvasA.cloneNode(true));
+  canvasB.replaceWith(canvasB.cloneNode(true));
+  // rebind
+  const newCanvasA = document.getElementById('canvasA'), newCanvasB = document.getElementById('canvasB');
+  newCanvasA.addEventListener('click', (e) => {
+    if (selecting !== 'A') return;
+    const rect = newCanvasA.getBoundingClientRect();
+    const x = (e.clientX - rect.left) * (newCanvasA.width / rect.width);
+    const y = (e.clientY - rect.top) * (newCanvasA.height / rect.height);
+    let nearest = null, best = 1e9;
+    for (const b of sideA_blobs) {
+      const d = Math.hypot(b.centroid.x - x, b.centroid.y - y);
+      if (d < best) { best = d; nearest = b; }
+    }
+    if (nearest && best < Math.max(newCanvasA.width, newCanvasA.height) * 0.12) {
+      selectedA = {id: nearest.id, side: 'A', blob: nearest};
+      setStatus(`Selected A #${nearest.id}. Now click matching pill on Side B.`);
+      drawAnnotations();
+    } else setStatus('No pill near click on Side A.');
+  });
+  newCanvasB.addEventListener('click', (e) => {
+    if (selecting !== 'B') return;
+    const rect = newCanvasB.getBoundingClientRect();
+    const x = (e.clientX - rect.left) * (newCanvasB.width / rect.width);
+    const y = (e.clientY - rect.top) * (newCanvasB.height / rect.height);
+    let nearest = null, best = 1e9;
+    for (const b of sideB_blobs) {
+      const d = Math.hypot(b.centroid.x - x, b.centroid.y - y);
+      if (d < best) { best = d; nearest = b; }
+    }
+    if (nearest && best < Math.max(newCanvasB.width, newCanvasB.height) * 0.12) {
+      selectedB = {id: nearest.id, side: 'B', blob: nearest};
+      setStatus(`Selected B #${nearest.id}.`);
+      if (selectedA) forceMatchSelected();
+      drawAnnotations();
+    } else setStatus('No pill near click on Side B.');
+  });
+}
+
+// manual force match
+function forceMatchSelected(){
+  if (!selectedA || !selectedB) return;
+  matches = matches.filter(m => !( (m.a && m.a.id === selectedA.id) || (m.b && m.b.id === selectedB.id) ));
+  matches.push({label: nextLabel++, a: selectedA.blob, b: selectedB.blob, flagged: false, forced: true});
+  setStatus(`Forced match: A#${selectedA.id} ↔ B#${selectedB.id}`);
+  selectedA = selectedB = null;
+  drawAnnotations();
+}
+
+function clearSelections(){ selectedA = selectedB = null; drawAnnotations(); setStatus('Selections cleared.'); }
+
+function markSelectedPairDifferent(){
+  if (!selectedA || !selectedB) { alert('Select one pill on Side A and one on Side B first.'); return; }
+  let found = matches.find(m => (m.a && m.a.id === selectedA.id) || (m.b && m.b.id === selectedB.id));
+  if (!found) matches.push({label: nextLabel++, a: selectedA.blob, b: selectedB.blob, flagged: true, forced: true});
+  else { found.a = selectedA.blob; found.b = selectedB.blob; found.flagged = true; found.forced = true; }
+  setStatus(`Marked as different: A#${selectedA.id} ↔ B#${selectedB.id}`);
+  selectedA = selectedB = null;
+  drawAnnotations();
+}
+
+// export CSV
+function exportCSV(){
+  const rows = [['label','a_id','b_id','a_cx','a_cy','b_cx','b_cy','flagged','forced']];
+  for (const m of matches) {
+    rows.push([
+      m.label || '',
+      m.a ? m.a.id : '',
+      m.b ? m.b.id : '',
+      m.a ? Math.round(m.a.centroid.x) : '',
+      m.a ? Math.round(m.a.centroid.y) : '',
+      m.b ? Math.round(m.b.centroid.x) : '',
+      m.b ? Math.round(m.b.centroid.y) : '',
+      m.flagged ? '1' : '0',
+      m.forced ? '1' : '0'
+    ]);
+  }
+  const csv = rows.map(r => r.map(c => `"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob = new Blob([csv], {type: 'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `pill_matches_${Date.now()}.csv`; document.body.appendChild(a);
+  a.click(); a.remove(); URL.revokeObjectURL(url);
+}
+
+// reset UI & data
+function resetAll(){
+  ctxA = canvasA.getContext('2d'); ctxB = canvasB.getContext('2d');
+  ctxA.clearRect(0,0,canvasA.width,canvasA.height); ctxB.clearRect(0,0,canvasB.width,canvasB.height);
+  sideA_blobs = []; sideB_blobs = []; matches = []; selectedA = selectedB = null; nextLabel = 1;
+  countA.textContent = '0 pills'; countB.textContent = '0 pills'; alertsEl.style.display='none'; alertsEl.textContent='';
+  setStatus(cvReady ? 'Ready' : 'OpenCV loading...');
+  // stop any live streams
+  stopLiveFor('A'); stopLiveFor('B');
+}
+
+// safety: prevent memory leak by deleting contour Mats' internal cv.Mat objects when removing blob arrays
+function cleanupBlobContours(arr) {
+  if (!Array.isArray(arr)) return;
+  for (const b of arr) {
+    try { if (b && b.contour && b.contour.delete) b.contour.delete(); } catch(e){}
+  }
+}
+
+// When replacing sideA_blobs/sideB_blobs, try to free previous contours
+function replaceSideABlobs(newArr){
+  cleanupBlobContours(sideA_blobs);
+  sideA_blobs = newArr;
+}
+function replaceSideBBlobs(newArr){
+  cleanupBlobContours(sideB_blobs);
+  sideB_blobs = newArr;
+}
+
+// ensure that when window unloads we stop camera
+window.addEventListener('beforeunload', ()=> {
+  if (mediaStream) mediaStream.getTracks().forEach(t => t.stop());
+});
+
+// done
+setStatus('Ready (OpenCV loading...)');
+
+</script>
+</body>
+</html>
