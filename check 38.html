@@ -161,6 +161,14 @@
 
 
 <script>
+// --- Suppress F1 to F14 ---
+document.addEventListener('keydown', function(e) {
+    if(e.key.startsWith('F') && parseInt(e.key.substring(1)) >= 1 && parseInt(e.key.substring(1)) <= 14) {
+        e.preventDefault();
+    }
+});
+
+	
 const githubFileURL = "https://raw.githubusercontent.com/htdhtdhtd2003/checker/main/ndc.txt";
 let githubData = [];
 
@@ -14837,6 +14845,7 @@ loadGitHubFile();
 
 </body>
 </html>
+
 
 
 
